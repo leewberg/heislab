@@ -13,7 +13,9 @@ struct Elevator{
 };
 
 void goToFloor();
-void lightIndicator();
+//use elevio motor direction to get it to go in the apropriate direction, and we send it to stop once it reaches the floor we want it to be on
+
+void lightIndicator(); //IRRELEVANT
 void getNextOrder();
 void wipeOrders();
 void initElevator();
