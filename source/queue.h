@@ -17,7 +17,7 @@ typedef struct{
 void initQ (Queue* q, int dir);
 int isFull(Queue *q);
 int isEmpty(Queue* q);
-void addFloorToQueue(Queue *q, int floor, int dir); //must specify which element we want to have it in
+void addFloorToQueue(Queue *q, int floor, int dir);
 void printQueue(Queue* q);
 void removeFromQueue(Queue *q);
 int getnextElement(Queue *q);
