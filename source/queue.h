@@ -23,6 +23,7 @@ void removeFromQueue(Queue *q);
 int getnextElement(Queue *q);
 void wipeQueue(Queue* q);
 
+
 /*
 example Queue:
 queue q = {
