@@ -4,23 +4,20 @@
 #include <time.h>
 #include "driver/elevio.h"
 
-struct Elevator{
+typedef struct{
     int inFloor;
-    int orderList;
-    bool door_open;
-    bool drivingDirection;
-    bool initialized;
-};
+    int orderList[N_FLOORS];
+    int initialized;
+    int onOrderNum;
+}Elevator;
 
-void goToFloor();
+void goToFloor(Elevator* el, int floor);
 //use elevio motor direction to get it to go in the apropriate direction, and we send it to stop once it reaches the floor we want it to be on
 
-void lightIndicator(); //IRRELEVANT
-void getNextOrder();
-void wipeOrders();
-void initElevator();
-void standStill();
-void stopButton();
-void checkOrders();
+void getNextOrder(Elevator* el);
+void wipeOrders(Elevator* el);
+void initElevator(Elevator* el);
+void stopButton(Elevator* el);
+void checkOrders(); //remove?
 void checkObstruction();
 void drive();

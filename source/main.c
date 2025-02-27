@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <time.h>
 #include "driver/elevio.h"
+#include "elevator.h"
 
 
 
@@ -14,10 +15,14 @@ int main(){
 
     elevio_motorDirection(DIRN_UP);
     printf("%d",elevio_floorSensor());
+    Elevator el;
+    el.inFloor = elevio_floorSensor();
+
 
     while(1){
         //right now: starter i nullte etasje, går bare opp og ned. knapper lyses opp når vi 
         int floor = elevio_floorSensor(); //sets floor
+        el.inFloor = floor;
 
         if(floor == 0){ //if we're at the bottom, change directions
             elevio_motorDirection(DIRN_UP);
