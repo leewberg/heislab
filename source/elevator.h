@@ -19,6 +19,8 @@ void getNextOrder(Elevator* el);
 void wipeOrders(Elevator* el);
 void initElevator(Elevator* el);
 void stopButton(Elevator* el);
-void checkOrders(); //remove?
+
+//remove these?
+void checkOrders();
 void checkObstruction();
 void drive();

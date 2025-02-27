@@ -1,4 +1,5 @@
 #include "elevator.h"
+#include "queue.h"
 
 void goToFloor(Elevator* el, int floor){
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
@@ -15,13 +16,22 @@ void goToFloor(Elevator* el, int floor){
         else{
             el -> onOrderNum += 1;
         }
+        //TODO: open doors for 3s
+        //TODO: extinguish light for floor we were just in (unless it's in another queue-element) (need func to check for all lights??)
     }
 }
 
 void getNextOrder(Elevator* el){
     el -> onOrderNum = 0; //start the order-queue from scratch
+    //TODO: get next element from the big queue in the sky
 }
-void wipeOrders();
+void wipeOrders(Elevator* el){
+    for (int i = 0; i < N_FLOORS; i++){
+        el -> orderList[i] = 0;
+    } //nullifies all orders
+}
+
+
 void initElevator(Elevator* el){
     el -> initialized = 0;
     el -> onOrderNum = 0;
@@ -32,7 +42,14 @@ void initElevator(Elevator* el){
     el -> initialized = 1;
 }
 
-void stopButton();
+void stopButton(Elevator* el, Queue* q){
+    wipeOrders(el);
+    wipeQueue(q);
+    elevio_motorDirection(DIRN_STOP);
+    elevio_stopLamp(1);
+}
+
+//remove these?
 void checkOrders();
 void checkObstruction();
 void drive();
