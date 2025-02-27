@@ -9,6 +9,7 @@ typedef struct{
     int orderList[N_FLOORS];
     int initialized;
     int onOrderNum;
+    int doorsOpen;
 }Elevator;
 
 void goToFloor(Elevator* el, int floor);
