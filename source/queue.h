@@ -20,7 +20,6 @@ int isEmpty(Queue* q);
 void addFloorToQueue(Queue *q, int floor, int dir);
 void printQueue(Queue* q);
 void removeFromQueue(Queue *q);
-int getnextElement(Queue *q);
 void wipeQueue(Queue* q);
 
 /*

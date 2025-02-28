@@ -35,8 +35,12 @@ int main(){
 
 
         //right now: starter i nullte etasje, går bare opp og ned. knapper lyses opp når vi 
-        int floor = elevio_floorSensor(); //sets floor
-        el.inFloor = floor;
+        int floor = elevio_floorSensor(); //sets floor. returns -1 when not in a floor
+        if (floor!= -1){
+            el.inFloor = floor; //only sets floor when not between floors
+            //TODO: light floor indicators when on a whole floor
+            elevio_floorIndicator(floor);
+        }
 
         if(floor == 0){ //if we're at the bottom, change directions
             elevio_motorDirection(DIRN_UP);
@@ -67,7 +71,7 @@ int main(){
             break;
         }
         
-        nanosleep(&(struct timespec){0, 20*1000*1000}, NULL);
+        nanosleep(&(struct timespec){0, 2*1000*1000}, NULL);
     }
 
     return 0;

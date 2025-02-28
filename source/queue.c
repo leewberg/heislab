@@ -19,7 +19,7 @@ int isFull(Queue *q) {
 //adds an element to the queue
 void addFloorToQueue(Queue *q, int floor, int dir){ //MOD
     //has to be modified to select which array the element will be put in
-    if (isfull(q)){
+    if (isFull(q)){
         printf("queue is full, not taking any more orders\n");
         return;
     }
@@ -33,7 +33,7 @@ void addFloorToQueue(Queue *q, int floor, int dir){ //MOD
         q -> arr[q->back][0][0] = dir;
         q -> arr[q->back][1][0] = floor;
     }
-    q -> arr[q->front+1][0][q->back] == floor;
+    q -> arr[q->front+1][0][q->back] = floor;
     q -> back ++;
 }
 
@@ -46,15 +46,6 @@ void removeFromQueue(Queue *q){
     q->front ++;
 }
 
-//returns the element at the start of the queue
-int getnextElement(Queue *q){
-    if (isEmpty(q)){
-        //can be used to stop the elevator when no further orders
-        printf("QUEUE IS EMPTY!!! STOP!!\n");
-        return -1;
-    }
-    return q -> arr[q->front +1];
-}
 
 //removes everything from the queue
 void wipeQueue(Queue* q){
@@ -63,7 +54,7 @@ void wipeQueue(Queue* q){
 }
 
 //prints our queue. handy for debugging. must be repurpoused
-void printQueue(Queue* q){
+/*void printQueue(Queue* q){
     if (isEmpty(q)){
         printf("Queue is empty\n");
         return;
@@ -71,7 +62,7 @@ void printQueue(Queue* q){
 
     printf("Current queue: \n");
     for (int i = q->front + 1; i < q->back; i++){
-        printf("%d \n", q->arr[i]);
+        printf("%d \n", q->arr[i][1]);
     }
-}
+}*/
 

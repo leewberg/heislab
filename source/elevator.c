@@ -1,5 +1,4 @@
 #include "elevator.h"
-#include "queue.h"
 
 void goToFloor(Elevator* el, int floor){
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
@@ -47,6 +46,16 @@ void stopButton(Elevator* el, Queue* q){
     wipeQueue(q);
     elevio_motorDirection(DIRN_STOP);
     elevio_stopLamp(1);
+}
+//returns the element at the start of the queue
+void getnextElement(Queue *q, Elevator* el){
+    if (isEmpty(q)){
+        //can be used to stop the elevator when no further orders
+        printf("QUEUE IS EMPTY!!! STOP!!\n");
+    }
+    for (int i = 0; i<N_FLOORS; i++){
+        el -> orderList[i] = q->arr[q->front+1][1][i];
+    }
 }
 
 //remove these?
