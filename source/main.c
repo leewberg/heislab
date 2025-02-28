@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <time.h>
 #include "driver/elevio.h"
+#include "elevator.h"
 
 
 
@@ -14,10 +15,28 @@ int main(){
 
     elevio_motorDirection(DIRN_UP);
     printf("%d",elevio_floorSensor());
+    Elevator el;
+    el.inFloor = elevio_floorSensor();
+
 
     while(1){
+        /*
+        Spaghetti-code:
+        * check floor and update elevator
+        * check if any buttons are pressed, and add them to queue if they are pressed (need logic to decide where the order is placed (elevator or general queue))
+        * go to floor of current element in elevator queue
+        * check if we have an obstruction
+        * check if the stop button is pressed
+        * check that all the lights that are in the order lists are pressed
+        * 
+        * maybe have an if at the start of the loop that checks for stop, so that we don't add orders and then clear them when the stop button is pressed (efficiency and all that)
+        */
+
+
+
         //right now: starter i nullte etasje, går bare opp og ned. knapper lyses opp når vi 
         int floor = elevio_floorSensor(); //sets floor
+        el.inFloor = floor;
 
         if(floor == 0){ //if we're at the bottom, change directions
             elevio_motorDirection(DIRN_UP);
