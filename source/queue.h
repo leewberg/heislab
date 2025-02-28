@@ -18,7 +18,6 @@ void initQ (Queue* q, int dir);
 int isFull(Queue *q);
 int isEmpty(Queue* q);
 void addFloorToQueue(Queue *q, int floor, int dir);
-void removeFromQueue(Queue *q);
 void wipeQueue(Queue* q);
 
 /*
