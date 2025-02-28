@@ -9,16 +9,25 @@ void goToFloor(Elevator* el, int floor){
     }
     else{
         elevio_motorDirection(DIRN_STOP);
-        if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
-            getNextOrder(el);
+        if (el->doorOpenCount == (3/LOOPTIME)*1000*1000*1000){ //if the doors have been open for 3 seconds
+            if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
+                getNextOrder(el);
+            }
+            else{
+                el -> onOrderNum += 1;
+            }
+            elevio_doorOpenLamp(0);
+            el -> doorOpenCount = 0;
         }
         else{
-            el -> onOrderNum += 1;
+            el ->doorOpenCount +=1;
+            elevio_doorOpenLamp(1);
         }
+        }
+        
         //TODO: open doors for 3s (don't clear order when obstruction)
         //TODO: extinguish light for floor we were just in (unless it's in another queue-element) (need func to check for all lights??)
     }
-}
 
 void getNextOrder(Elevator* el){
     el -> onOrderNum = 0; //start the order-queue from scratch
@@ -35,6 +44,7 @@ void initElevator(Elevator* el){
     el -> initialized = 0;
     el -> onOrderNum = 0;
     el -> doorsOpen = 0;
+    el ->justStopped = 0;
     el -> inFloor = elevio_floorSensor();
     while (el->inFloor != 0){
         int floor = elevio_floorSensor();

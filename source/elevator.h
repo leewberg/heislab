@@ -4,6 +4,7 @@
 #include <time.h>
 #include "driver/elevio.h"
 #include "queue.h"
+#define LOOPTIME 1000*1000
 
 typedef struct{
     int inFloor;
@@ -11,6 +12,8 @@ typedef struct{
     int initialized;
     int onOrderNum;
     int doorsOpen;
+    int doorOpenCount;
+    int justStopped;
 } Elevator;
 
 void goToFloor(Elevator* el, int floor);

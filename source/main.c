@@ -61,6 +61,7 @@ int main(){
 
         if(elevio_obstruction()){ //checks if we have an obstruction
             elevio_stopLamp(1);
+            el.doorOpenCount = 0;
         } else {
             elevio_stopLamp(0);
         }
@@ -71,7 +72,7 @@ int main(){
             break; //ideally: don't exit entire fucking program when stop button is pressed you complete and utter piece of garbage (talking to Lee (the one writing this))
         }
         
-        nanosleep(&(struct timespec){0, 1000*1000}, NULL); //can use this to keep track of how long doors have been open
+        nanosleep(&(struct timespec){0, LOOPTIME}, NULL); //can use this to keep track of how long doors have been open
     }
 
     return 0;

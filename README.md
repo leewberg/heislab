@@ -11,15 +11,12 @@ Code for project in TTK4235 Embedded Systems
 
 
 ### In elevator.h (L)
-* open doors for 3 seconds when we've reached a new floor (need to reset this if there's an obstruction)
 
 * extinguish light for order light when order is completed (as in, extinguish 2-UP when we've gone to the second floor)
 
 * get the next queue-element in getNextOrder (can be combined with getNextElement?)
 
 * get doors working :3
-
-* can use a counter-variable in the elevator to keep track of how long the doors have been open. if an obstrucction is detected, we reset this variable. once the variable is the amount it should be (time used to run through the loop*amount of times it needs to run though the loop for it to be (about) 3s), it gets reset again and move on to the next order
 
 * expand on stop function to check if we stop inbetween floors or not. if we stop in a floor, the doors have to open.
 
@@ -44,3 +41,8 @@ Code for project in TTK4235 Embedded Systems
 * light indicator for which floor we're on
 
 * initialize elevator
+
+* get doors working :3
+
+* open doors for 3 seconds when we've reached a new floor (need to reset this if there's an obstruction)
+    * can use a counter-variable in the elevator to keep track of how long the doors have been open. if an obstrucction is detected, we reset this variable. once the variable is the amount it should be (time used to run through the loop*amount of times it needs to run though the loop for it to be (about) 3s), it gets reset again and move on to the next order
