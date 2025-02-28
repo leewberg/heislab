@@ -15,7 +15,7 @@ void goToFloor(Elevator* el, int floor){
         else{
             el -> onOrderNum += 1;
         }
-        //TODO: open doors for 3s
+        //TODO: open doors for 3s (don't clear order when obstruction)
         //TODO: extinguish light for floor we were just in (unless it's in another queue-element) (need func to check for all lights??)
     }
 }
@@ -35,7 +35,13 @@ void initElevator(Elevator* el){
     el -> initialized = 0;
     el -> onOrderNum = 0;
     el -> doorsOpen = 0;
+    el -> inFloor = elevio_floorSensor();
     while (el->inFloor != 0){
+        int floor = elevio_floorSensor();
+        printf("%d \n", floor);
+        if (floor != -1){
+            el -> inFloor = floor;
+        }
         goToFloor(el, 0);
     }
     el -> initialized = 1;

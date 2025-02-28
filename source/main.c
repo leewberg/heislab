@@ -16,7 +16,7 @@ int main(){
     elevio_motorDirection(DIRN_UP);
     printf("%d",elevio_floorSensor());
     Elevator el;
-    el.inFloor = elevio_floorSensor();
+    initElevator(&el);
 
 
     while(1){
@@ -38,7 +38,6 @@ int main(){
         int floor = elevio_floorSensor(); //sets floor. returns -1 when not in a floor
         if (floor!= -1){
             el.inFloor = floor; //only sets floor when not between floors
-            //TODO: light floor indicators when on a whole floor
             elevio_floorIndicator(floor);
         }
 
@@ -67,11 +66,12 @@ int main(){
         }
         
         if(elevio_stopButton()){ //if the stop button is pressed, we go here
+            elevio_stopLamp(1);
             elevio_motorDirection(DIRN_STOP);
-            break;
+            break; //ideally: don't exit entire fucking program when stop button is pressed you complete and utter piece of garbage (talking to Lee (the one writing this))
         }
         
-        nanosleep(&(struct timespec){0, 2*1000*1000}, NULL);
+        nanosleep(&(struct timespec){0, 1000*1000}, NULL); //can use this to keep track of how long doors have been open
     }
 
     return 0;
