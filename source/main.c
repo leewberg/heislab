@@ -14,9 +14,9 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     elevio_motorDirection(DIRN_UP);
-    printf("%d",elevio_floorSensor());
+    Queue q;
     Elevator el;
-    initElevator(&el);
+    initElevator(&el, &q);
 
 
     while(1){
@@ -40,7 +40,6 @@ int main(){
             el.inFloor = floor; //only sets floor when not between floors
             elevio_floorIndicator(floor);
         }
-
         if(floor == 0){ //if we're at the bottom, change directions
             elevio_motorDirection(DIRN_UP);
         }

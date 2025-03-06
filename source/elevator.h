@@ -12,12 +12,12 @@ typedef struct{
     int initialized;
     int onOrderNum;
     int doorsOpen;
-    int doorOpenCount;
+    volatile int doorOpenCount;
     int justStopped;
 } Elevator;
 
-void goToFloor(Elevator* el, int floor);
+void goToFloor(Elevator* el, int floor, Queue* q);
 void wipeOrders(Elevator* el);
-void initElevator(Elevator* el);
+void initElevator(Elevator* el, Queue* q);
 void stopButton(Elevator* el, Queue* q);
 void getnextElement(Queue *q, Elevator* el);
