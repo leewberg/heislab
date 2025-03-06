@@ -3,12 +3,14 @@
 void goToFloor(Elevator* el, int floor, Queue* q){
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
         elevio_motorDirection(DIRN_UP);
+        el -> lastKnownDirection = DIRN_UP; //saving these in case we stop between floors
     }
     else if (el->inFloor > floor){
         elevio_motorDirection(DIRN_DOWN);
+        el -> lastKnownDirection = DIRN_DOWN;
     }
     else if (el -> inFloor == floor){
-        if ((el->doorOpenCount*LOOPTIME) >= 3){ //if the doors have been open for 3 seconds
+        if ((el->doorOpenCount*LOOPTIME) >= 3*LOOPTIME){ //if the doors have been open for 3 seconds
             //commented this out as the queue isn't fully realized yet
             /*if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
                 getnextElement(q, el);
@@ -73,4 +75,26 @@ void getnextElement(Queue *q, Elevator* el){
         el -> orderList[i] = q->arr[q->front+1][1][i];
     }
     q -> front += 1;
+}
+
+void iGetKnockedDown(Elevator* el){
+    elevio_stopLamp(1);
+    elevio_motorDirection(DIRN_STOP);
+    el -> justStopped = 1;
+
+}
+
+void ButIGetUpAgain(Elevator* el, Queue* q){
+    if (elevio_floorSensor() == -1){//if we're between two floors
+        if (el->lastKnownDirection == DIRN_DOWN){ //if we were previously going down, we have to go up to return to our previous floor
+            elevio_motorDirection(DIRN_UP);
+        }
+        else{
+            elevio_motorDirection(DIRN_DOWN);
+        }
+    }
+    if (el->inFloor == elevio_floorSensor()){
+        el->justStopped = 0;
+        elevio_stopLamp(0);
+    }
 }

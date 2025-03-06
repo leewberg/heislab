@@ -14,6 +14,7 @@ typedef struct{
     int doorsOpen;
     volatile int doorOpenCount;
     int justStopped;
+    MotorDirection lastKnownDirection;
 } Elevator;
 
 void goToFloor(Elevator* el, int floor, Queue* q);
@@ -21,3 +22,5 @@ void wipeOrders(Elevator* el);
 void initElevator(Elevator* el, Queue* q);
 void stopButton(Elevator* el, Queue* q);
 void getnextElement(Queue *q, Elevator* el);
+void iGetKnockedDown(Elevator* el);
+void ButIGetUpAgain(Elevator* el, Queue* q);

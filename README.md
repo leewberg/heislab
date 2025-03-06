@@ -14,10 +14,6 @@ Code for project in TTK4235 Embedded Systems
 
 * extinguish light for order light when order is completed (as in, extinguish 2-UP when we've gone to the second floor)
 
-* expand on stop function to check if we stop inbetween floors or not. if we stop in a floor, the doors have to open.
-    * can do this by checking elevio_floors and if it's -1 or not. if not, we open the doors. also close doors once we haven't stopped yet.
-* make just_stopped function
-    * go-to-floor for last recorded floor in elevator history, close doors, and don't take orders. yippeeee
 
 
 ### In queue.h (N)
@@ -49,3 +45,6 @@ Code for project in TTK4235 Embedded Systems
 * get the next queue-element in getNextOrder (can be combined with getNextElement?)
 
 * get doors working :3
+
+* expand on stop function to check if we stop inbetween floors or not. if we stop in a floor, the doors have to open.
+* make just_stopped function
