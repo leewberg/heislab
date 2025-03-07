@@ -1,29 +1,37 @@
 #include "elevator.h"
 
-void goToFloor(Elevator* el, int floor){
+void goToFloor(Elevator* el, int floor, Queue* q){
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
         elevio_motorDirection(DIRN_UP);
+        el -> lastKnownDirection = DIRN_UP; //saving these in case we stop between floors
     }
     else if (el->inFloor > floor){
         elevio_motorDirection(DIRN_DOWN);
+        el -> lastKnownDirection = DIRN_DOWN;
     }
-    else{
-        elevio_motorDirection(DIRN_STOP);
-        if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
-            getNextOrder(el);
+    else if (el -> inFloor == floor){
+        if ((el->doorOpenCount*LOOPTIME) >= 3*LOOPTIME){ //if the doors have been open for 3 seconds
+            //commented this out as the queue isn't fully realized yet
+            /*if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
+                getnextElement(q, el);
+            }
+            else{
+                el -> onOrderNum += 1;
+            }*/
+            el -> doorOpenCount = 0;
+            el -> doorsOpen = 0;
         }
         else{
-            el -> onOrderNum += 1;
+            el ->doorOpenCount ++;
+            el ->doorsOpen = 1;
         }
-        //TODO: open doors for 3s (don't clear order when obstruction)
+        elevio_doorOpenLamp(el -> doorsOpen);
+        elevio_motorDirection(DIRN_STOP);
+    }
         //TODO: extinguish light for floor we were just in (unless it's in another queue-element) (need func to check for all lights??)
     }
-}
 
-void getNextOrder(Elevator* el){
-    el -> onOrderNum = 0; //start the order-queue from scratch
-    //TODO: get next element from the big queue in the sky
-}
+
 void wipeOrders(Elevator* el){
     for (int i = 0; i < N_FLOORS; i++){
         el -> orderList[i] = 0;
@@ -31,20 +39,22 @@ void wipeOrders(Elevator* el){
 }
 
 
-void initElevator(Elevator* el){
+void initElevator(Elevator* el, Queue* q){
     el -> initialized = 0;
     el -> onOrderNum = 0;
     el -> doorsOpen = 0;
+    el -> justStopped = 0;
     el -> inFloor = elevio_floorSensor();
     while (el->inFloor != 0){
         int floor = elevio_floorSensor();
-        printf("%d \n", floor);
         if (floor != -1){
             el -> inFloor = floor;
         }
-        goToFloor(el, 0);
+        goToFloor(el, 0, q);
     }
+    el -> doorOpenCount = 0;
     el -> initialized = 1;
+    elevio_doorOpenLamp(0);
 }
 
 void stopButton(Elevator* el, Queue* q){
@@ -53,18 +63,38 @@ void stopButton(Elevator* el, Queue* q){
     elevio_motorDirection(DIRN_STOP);
     elevio_stopLamp(1);
 }
-//returns the element at the start of the queue
+
+//returns the element at the start of the queue. also removes said element from the queue by moving the front up one value.
 void getnextElement(Queue *q, Elevator* el){
+    el -> onOrderNum = 0; //start the order-queue from scratch
     if (isEmpty(q)){
         //can be used to stop the elevator when no further orders
-        printf("QUEUE IS EMPTY!!! STOP!!\n");
+        return;
     }
     for (int i = 0; i<N_FLOORS; i++){
         el -> orderList[i] = q->arr[q->front+1][1][i];
     }
+    q -> front += 1;
 }
 
-//remove these?
-void checkOrders();
-void checkObstruction();
-void drive();
+void iGetKnockedDown(Elevator* el){
+    elevio_stopLamp(1);
+    elevio_motorDirection(DIRN_STOP);
+    el -> justStopped = 1;
+
+}
+
+void ButIGetUpAgain(Elevator* el, Queue* q){
+    if (elevio_floorSensor() == -1){//if we're between two floors
+        if (el->lastKnownDirection == DIRN_DOWN){ //if we were previously going down, we have to go up to return to our previous floor
+            elevio_motorDirection(DIRN_UP);
+        }
+        else{
+            elevio_motorDirection(DIRN_DOWN);
+        }
+    }
+    if (el->inFloor == elevio_floorSensor()){
+        el->justStopped = 0;
+        elevio_stopLamp(0);
+    }
+}

@@ -37,15 +37,6 @@ void addFloorToQueue(Queue *q, int floor, int dir){
     q -> back ++;
 }
 
-//removes an element from the queue by moving the front up one value
-void removeFromQueue(Queue *q){
-    if (isEmpty(q)){
-        printf("queue is empty. what the fuck are you doing?\n");
-        return;
-    }
-    q->front ++;
-}
-
 
 //removes everything from the queue
 void wipeQueue(Queue* q){
