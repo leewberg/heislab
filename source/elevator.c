@@ -19,6 +19,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
             }
             else{
                 el -> onOrderNum += 1;
+                //need to check if the next elemnt is -1. if so, we go further
             }*/
             el -> doorOpenCount = 0;
             el -> doorsOpen = 0;
@@ -61,6 +62,9 @@ void initElevator(Elevator* el, Queue* q){
         }
         goToFloor(el, 0, q);
     }
+    for (int i = 0; i < N_FLOORS; i++){
+        el -> orderList[i] = -1;
+    }
     el -> doorOpenCount = 0;
     el -> initialized = 1;
     elevio_doorOpenLamp(0);
@@ -84,7 +88,6 @@ void getnextElement(Queue *q, Elevator* el){
         el -> orderList[i] = q->arr[q->front+1][1][i];
     }
     q -> front += 1;
-    q -> back -= 1;
 }
 
 void iGetKnockedDown(Elevator* el){
@@ -119,4 +122,20 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
             el -> doorOpenCount += 1;
         }
     }
+}
+
+void printQandE(Queue* q, Elevator* el){
+    printf("Queue: \n");
+    for (int i = 0; i < MAX_SIZE; i++){
+        for (int j = 0; j < N_FLOORS; j++){
+            printf("%d \n", q ->arr[i][1][j]);
+        }
+        printf("new element\n");
+    }
+
+    printf("Elevator Queue: \n");
+    for (int i = 0; i < N_FLOORS; i++){
+        printf("%d \n", el->orderList[i]);
+    }
+
 }

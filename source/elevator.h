@@ -24,3 +24,5 @@ void stopButton(Elevator* el, Queue* q);
 void getnextElement(Queue *q, Elevator* el);
 void iGetKnockedDown(Elevator* el);
 void ButIGetUpAgain(Elevator* el, Queue* q);
+
+void printQandE(Queue* q, Elevator* el);

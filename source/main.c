@@ -15,6 +15,7 @@ int main(){
 
     elevio_motorDirection(DIRN_UP);
     Queue q;
+    initQ(&q);
     Elevator el;
     initElevator(&el, &q);
 
@@ -54,15 +55,57 @@ int main(){
                 el.lastKnownDirection = DIRN_DOWN;
             }
 
-            goToFloor(&el, el.orderList[el.onOrderNum], &q); //sets elevator to go to the floor of it's next 
+            //goToFloor(&el, el.orderList[el.onOrderNum], &q); //sets elevator to go to the floor of it's next queue-element
 
-            //checks which buttons have been pressed
-            //can use this to instead of just lighting the indicators when the button is pressed and then extinguising it, we instead use it to recieve orders and add the to the que
             for(int f = 0; f < N_FLOORS; f++){ //f: floor
                 for(int b = 0; b < N_BUTTONS; b++){ //b: button on each floor
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
+
                     if (btnPressed){
                         elevio_buttonLamp(f, b, 1);
+                        //clean all this shit up
+                        if ((el.lastKnownDirection == DIRN_UP & b == 0) | (el.lastKnownDirection == DIRN_DOWN & b == 1) | b == 2){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
+                            switch (el.lastKnownDirection){
+                            case DIRN_UP:
+                            
+                                if (f > el.inFloor){
+                                    el.orderList[f] = f;
+                                    printf("match, up\n");
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 1);
+                                    printf("no match, up\n");
+                                }
+                                break;
+                            case DIRN_DOWN:
+                                if (f < el.inFloor){
+                                    el.orderList[N_FLOORS-f-1] = f;
+                                    printf("match, down\n");
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 0);
+                                    printf("no match, down\n");
+                                }
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                        else{
+                            switch (b){
+                            case 0:
+                                addFloorToQueue(&q, f, 1);
+                                printf("no match, add to down-queue\n");
+                                break;
+                            case 1:
+                                addFloorToQueue(&q, f, 0);
+                                printf("no match, add up-queue\n");
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                        //printQandE(&q, &el); //DEBUG
                     }
                 }
             }
