@@ -24,11 +24,9 @@ void addFloorToQueue(Queue *q, int floor, int dir){
     }
     if (q -> arr[q->front+1][0][0] == dir){ //and floor not already in queue
         q -> arr[q->front+1][1][N_FLOORS-1] = floor; 
-        //TODO: sort here. sort based on direction (rising if we're moving up, decending if we're moving down)
     }
     else if (q -> arr[q->front+2][0][0] == dir){
         q -> arr[q->front+2][1][N_FLOORS-1] = floor;
-        //TODO: sort here
     }
     else{//must create array if not already dir in queue
         q -> arr[q->back][0][0] = dir;

@@ -27,7 +27,7 @@ int main(){
         * go to floor of current element in elevator queue
         * check if we have an obstruction
         * check if the stop button is pressed
-        * check that all the lights that are in the order lists are pressed
+        * check that all the lights that are in the order lists are pressed (maybe not, see README.md)
         * 
         * maybe have an if at the start of the loop that checks for stop, so that we don't add orders and then clear them when the stop button is pressed (efficiency and all that)
         */
@@ -54,13 +54,16 @@ int main(){
                 el.lastKnownDirection = DIRN_DOWN;
             }
 
+            goToFloor(&el, el.orderList[el.onOrderNum], &q); //sets elevator to go to the floor of it's next 
+
             //checks which buttons have been pressed
             //can use this to instead of just lighting the indicators when the button is pressed and then extinguising it, we instead use it to recieve orders and add the to the que
             for(int f = 0; f < N_FLOORS; f++){ //f: floor
                 for(int b = 0; b < N_BUTTONS; b++){ //b: button on each floor
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
-                    elevio_buttonLamp(f, b, btnPressed); //updates light on the floor, then the button button, and if button is pressed
-                    //to extinguish button, send 0 to this
+                    if (btnPressed){
+                        elevio_buttonLamp(f, b, 1);
+                    }
                 }
             }
 
