@@ -4,6 +4,7 @@
 #include <time.h>
 #include "driver/elevio.h"
 #include "queue.h"
+#define LOOPTIME 1000*1000
 
 typedef struct{
     int inFloor;
@@ -11,18 +12,15 @@ typedef struct{
     int initialized;
     int onOrderNum;
     int doorsOpen;
+    volatile int doorOpenCount;
+    int justStopped;
+    MotorDirection lastKnownDirection;
 } Elevator;
 
-void goToFloor(Elevator* el, int floor);
-//use elevio motor direction to get it to go in the apropriate direction, and we send it to stop once it reaches the floor we want it to be on
-
-void getNextOrder(Elevator* el);
+void goToFloor(Elevator* el, int floor, Queue* q);
 void wipeOrders(Elevator* el);
-void initElevator(Elevator* el);
+void initElevator(Elevator* el, Queue* q);
 void stopButton(Elevator* el, Queue* q);
 void getnextElement(Queue *q, Elevator* el);
-
-//remove these?
-void checkOrders();
-void checkObstruction();
-void drive();
+void iGetKnockedDown(Elevator* el);
+void ButIGetUpAgain(Elevator* el, Queue* q);
