@@ -61,8 +61,9 @@ int main(){
             for(int f = 0; f < N_FLOORS; f++){ //f: floor
                 for(int b = 0; b < N_BUTTONS; b++){ //b: button on each floor
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
-                    elevio_buttonLamp(f, b, btnPressed); //updates light on the floor, then the button button, and if button is pressed
-                    //to extinguish button, send 0 to this
+                    if (btnPressed){
+                        elevio_buttonLamp(f, b, 1);
+                    }
                 }
             }
 
