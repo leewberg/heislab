@@ -91,13 +91,15 @@ void iGetKnockedDown(Elevator* el){
     elevio_stopLamp(1);
     elevio_motorDirection(DIRN_STOP);
     el -> justStopped = 1;
-
-    //TODO: open doors if stopped in a floor
+    if (elevio_floorSensor() != -1){
+        elevio_doorOpenLamp(1);
+    }
 
 }
 
 void ButIGetUpAgain(Elevator* el, Queue* q){
     if (elevio_floorSensor() == -1){//if we're between two floors
+        el -> doorOpenCount = 0;
         if (el->lastKnownDirection == DIRN_DOWN){ //if we were previously going down, we have to go up to return to our previous floor
             elevio_motorDirection(DIRN_UP);
         }
@@ -106,9 +108,15 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
         }
     }
     if (el->inFloor == elevio_floorSensor()){
-        el->justStopped = 0;
-        elevio_stopLamp(0);
+        if (el -> doorOpenCount*LOOPTIME >=3){
+            el-> doorOpenCount = 0;
+            el->justStopped = 0;
+            elevio_stopLamp(0);
+            elevio_doorOpenLamp(0);
+        }
+        else{
+            elevio_doorOpenLamp(1);
+            el -> doorOpenCount += 1;
+        }
     }
-
-    //TODO: open doors for three seconds if stopped in a floor
 }

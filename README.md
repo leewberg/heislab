@@ -3,9 +3,6 @@ Code for project in TTK4235 Embedded Systems
 
 ## TODO:
 
-### In elevator.c
-* open doors if the elevator is stopped in a floor. keep the doors open for another three seconds once the stop button is released
-
 ### In lights.h: (N)
 * make function that lights up every floor in correct direction based on the SuperQueue (defined in queue.h) and Elevator.OrderList (make sure to only light those from onOrderNum and onwards)
 
@@ -54,3 +51,5 @@ Code for project in TTK4235 Embedded Systems
 * start the entire while loop w/ checking if we're stopping or not
 
 * extinguish light for order light when order is completed (as in, extinguish 2-UP when we've gone to the second floor)
+
+* open doors if the elevator is stopped in a floor. keep the doors open for another three seconds once the stop button is released
