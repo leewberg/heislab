@@ -5,11 +5,13 @@ void goToFloor(Elevator* el, int floor, Queue* q){
         elevio_motorDirection(DIRN_UP);
         el -> lastKnownDirection = DIRN_UP; //saving these in case we stop between floors
     }
+
     else if (el->inFloor > floor){
         elevio_motorDirection(DIRN_DOWN);
         el -> lastKnownDirection = DIRN_DOWN;
     }
-    else if (el -> inFloor == floor){
+
+    else if (el -> inFloor == floor){ //once we've reached our floor
         if ((el->doorOpenCount*LOOPTIME) >= 3*LOOPTIME){ //if the doors have been open for 3 seconds
             //commented this out as the queue isn't fully realized yet
             /*if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
@@ -20,6 +22,14 @@ void goToFloor(Elevator* el, int floor, Queue* q){
             }*/
             el -> doorOpenCount = 0;
             el -> doorsOpen = 0;
+            if (el-> lastKnownDirection == DIRN_DOWN){ //if we were going down, and the order is completed, we extinguish the lights for the call-button for down on that floor and the cab-light for that floor
+                elevio_buttonLamp(floor, 1, 0);
+                elevio_buttonLamp(floor, 2, 0);
+            }
+            else if (el->lastKnownDirection == DIRN_UP){
+                elevio_buttonLamp(floor, 0, 0);
+                elevio_buttonLamp(floor, 2, 0);
+            }
         }
         else{
             el ->doorOpenCount ++;
@@ -28,8 +38,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
         elevio_doorOpenLamp(el -> doorsOpen);
         elevio_motorDirection(DIRN_STOP);
     }
-        //TODO: extinguish light for floor we were just in (unless it's in another queue-element) (need func to check for all lights??)
-    }
+}
 
 
 void wipeOrders(Elevator* el){
@@ -75,12 +84,15 @@ void getnextElement(Queue *q, Elevator* el){
         el -> orderList[i] = q->arr[q->front+1][1][i];
     }
     q -> front += 1;
+    q -> back -= 1;
 }
 
 void iGetKnockedDown(Elevator* el){
     elevio_stopLamp(1);
     elevio_motorDirection(DIRN_STOP);
     el -> justStopped = 1;
+
+    //TODO: open doors if stopped in a floor
 
 }
 
@@ -97,4 +109,6 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
         el->justStopped = 0;
         elevio_stopLamp(0);
     }
+
+    //TODO: open doors for three seconds if stopped in a floor
 }
