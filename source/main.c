@@ -87,11 +87,11 @@ int main(){
                             }
                         }
                         else if (b == 2){
-                            if ((el.direction == DIRN_UP) & (f >= el.inFloor)){
+                            if ((el.direction == DIRN_UP) & (f > el.inFloor)){
                                 el.orderList[f] = f;
                                 foundPlace = 1;
                             }
-                            else if ((el.direction == DIRN_DOWN) & (f <= el.inFloor)){
+                            else if ((el.direction == DIRN_DOWN) & (f < el.inFloor)){
                                 el.orderList[N_FLOORS-1-f] = f;
                                 foundPlace = 1;
                             }
