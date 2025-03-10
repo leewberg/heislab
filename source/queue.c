@@ -8,7 +8,7 @@ void initQ (Queue* q, int dir){
 
 //checks if the queue is empty
 int isEmpty(Queue* q){
-    return (q->front ==q -> back -1);
+    return (q->front == q -> back -1);
 }
 
 //checks if the queue is full
@@ -39,6 +39,11 @@ void addFloorToQueue(Queue *q, int floor, int dir){
 //removes everything from the queue
 void wipeQueue(Queue* q){
     q -> front = (q -> back -1);
-    //LATER: extinguish all lights
-    //TODO: nullify all elements?
+    //Nicolay's additions
+    extLightIndicators(); // extinguish all lights
+    for (int f = 0; f < N_FLOORS; f++) { // nullify all elements in the queue (set to -1) 
+        q -> arr[0][1][f] = -1;
+        q -> arr[1][1][f] = -1;
+    }
 }
+

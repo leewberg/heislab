@@ -4,6 +4,4 @@
 #include <time.h>
 #include "driver/elevio.h"
 
-void lightIndicator(int number);
-
-void extInd(int number);
+void extLightIndicators();

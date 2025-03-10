@@ -3,22 +3,12 @@ Code for project in TTK4235 Embedded Systems
 
 ## TODO:
 
-### In lights.h: (N)
-
-* make function to extinguish all lights (used when queue is wiped)
-
 ### In queue.h (N)
-
-* extinguish all lights when wiping queue (do this in wipe queue)
-
-* nullify queue.arr when wiping it (set all elements to -1)
 
 * expand on addFloorToQueue so that orders are remembered correctly when adding to queue in regards to logic (see main.c) [L]
 
-* in InitQ: initialize all elements as -1 [N]
 
 ### In elevator.h
-* wipe queue when stop button is pressed [N]
 * wipe elevator-queue when stop button is pressed (remember, -1 means invalid order)[N]
 
 
@@ -61,3 +51,13 @@ Code for project in TTK4235 Embedded Systems
 * open doors if the elevator is stopped in a floor. keep the doors open for another three seconds once the stop button is released
 
 * once a button is pressed, we light it up at once. when the order is finished, we extinguish both the lights on the outside and inside of the cab. this makes the code more effective, as we don't need to check every single order to see if we need to light up the lamp or not.
+
+* make function to extinguish all lights (used when queue is wiped)
+
+* extinguish all lights when wiping queue (do this in wipe queue)
+
+* nullify queue.arr when wiping it (set all elements to -1)
+
+* wipe queue when stop button is pressed [N]
+
+* in InitQ: initialize all elements as -1 [N]
