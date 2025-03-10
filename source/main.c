@@ -15,6 +15,7 @@ int main(){
 
     elevio_motorDirection(DIRN_UP);
     Queue q;
+    initQ(&q);
     Elevator el;
     initElevator(&el, &q);
 
@@ -44,7 +45,7 @@ int main(){
                 elevio_floorIndicator(floor);
             }
 
-            if(floor == 0){ //if we're at the bottom, change directions
+            /*if(floor == 0){ //if we're at the bottom, change directions
                 elevio_motorDirection(DIRN_UP);
                 el.lastKnownDirection = DIRN_UP;
             }
@@ -52,17 +53,63 @@ int main(){
             if(floor == N_FLOORS-1){ //if we're at the top, change directions
                 elevio_motorDirection(DIRN_DOWN);
                 el.lastKnownDirection = DIRN_DOWN;
-            }
+            }*/
 
-            goToFloor(&el, el.orderList[el.onOrderNum], &q); //sets elevator to go to the floor of it's next 
+            goToFloor(&el, el.orderList[el.onOrderNum], &q); 
+            //sets elevator to go to the floor of its next queue-element
 
-            //checks which buttons have been pressed
-            //can use this to instead of just lighting the indicators when the button is pressed and then extinguising it, we instead use it to recieve orders and add the to the que
             for(int f = 0; f < N_FLOORS; f++){ //f: floor
                 for(int b = 0; b < N_BUTTONS; b++){ //b: button on each floor
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
+
                     if (btnPressed){
                         elevio_buttonLamp(f, b, 1);
+                        //TODO: compress to cleaner code
+                        if ((el.lastKnownDirection == DIRN_UP & b == 0) | (el.lastKnownDirection == DIRN_DOWN & b == 1) | b == 2){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
+                            switch (el.lastKnownDirection){
+                            case DIRN_UP:
+                                if (f > el.inFloor){
+                                    el.orderList[f] = f;
+                                    printf("added floor %d to elevator queue\n", f);
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 1);
+                                    printf("added floor %d to super-queue, direction up\n", f);
+                                }
+                                break;
+                            case DIRN_DOWN:
+                                if (f < el.inFloor){
+                                    el.orderList[N_FLOORS-f-1] = f;
+                                    printf("added floor %d to elevator-queue, direction down\n", f);
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 0);
+                                    printf("added floor %d to super-queue, direction down\n", f);
+                                }
+                                break;
+                            default:
+                                break;
+                            }
+                            if (el.orderList[el.onOrderNum] == -1){
+                                el.onOrderNum =0;
+                            }
+                        }
+                        else{
+                            //addFloorToQueue(&q, f, ((b+1)%2));
+                            switch (b){
+                            case 0:
+                                addFloorToQueue(&q, f, 1);
+                                printf("added floor %d to super-queue, direction up\n", f);
+                                break;
+                            case 1:
+                                addFloorToQueue(&q, f, 0);
+                                printf("added floor %d to super-queue, direction down\n", f);
+                                break;
+                            default:
+                                break;
+                            }
+                        }
+                        printQandE(&q, &el); //DEBUG
                     }
                 }
             }

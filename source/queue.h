@@ -15,7 +15,7 @@ typedef struct{
 }Queue;
 
 //for child struct
-void initQ (Queue* q, int dir);
+void initQ (Queue* q);
 int isFull(Queue *q);
 int isEmpty(Queue* q);
 void addFloorToQueue(Queue *q, int floor, int dir);
