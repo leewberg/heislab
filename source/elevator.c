@@ -96,6 +96,7 @@ void stopButton(Elevator* el, Queue* q){
     wipeQueue(q);
     elevio_motorDirection(DIRN_STOP);
     elevio_stopLamp(1);
+    wipeQueue(q);
 }
 
 //returns the element at the start of the queue. also removes said element from the queue by moving the front up one value.

@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <time.h>
 #include "driver/elevio.h"
+#include "lights.h"
 #define MAX_SIZE 2
 
 
@@ -19,6 +20,7 @@ int isFull(Queue *q);
 int isEmpty(Queue* q);
 void addFloorToQueue(Queue *q, int floor, int dir);
 void wipeQueue(Queue* q);
+
 
 /*
 example Queue:
