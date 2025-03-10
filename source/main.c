@@ -5,7 +5,7 @@
 #include "driver/elevio.h"
 #include "elevator.h"
 
-//ISSUE: elevator queue isn't wiped at stop
+//ISSUE: elevator skips floors
 
 
 int main(){
@@ -36,16 +36,6 @@ int main(){
                 elevio_floorIndicator(floor);
             }
 
-            /*if(floor == 0){ //if we're at the bottom, change directions
-                elevio_motorDirection(DIRN_UP);
-                el.lastKnownDirection = DIRN_UP;
-            }
-
-            if(floor == N_FLOORS-1){ //if we're at the top, change directions
-                elevio_motorDirection(DIRN_DOWN);
-                el.lastKnownDirection = DIRN_DOWN;
-            }*/
-
             goToFloor(&el, el.orderList[el.onOrderNum], &q); 
             //sets elevator to go to the floor of its next queue-element
 
@@ -54,39 +44,64 @@ int main(){
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
 
                     if (btnPressed){
-                        elevio_buttonLamp(f, b, 1);
+                        int foundPlace = 0;
                         //TODO: compress to cleaner code
-                        if ((el.lastKnownDirection == DIRN_UP & b == 0) | (el.lastKnownDirection == DIRN_DOWN & b == 1) | b == 2){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
-                            switch (el.lastKnownDirection){
+                        if ((el.direction == DIRN_UP & b == 0) | (el.direction == DIRN_DOWN & b == 1)){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
+                            switch (el.direction){
                             case DIRN_UP:
-                                if (f > el.inFloor){
+                                if (f >= el.inFloor){
                                     el.orderList[f] = f;
                                     printf("added floor %d to elevator queue\n", f);
                                     if (el.orderList[el.onOrderNum] == -1){
                                         el.onOrderNum = f;
+                                        printf("changed order number\n");
                                     }
+                                    foundPlace = 1;
                                 }
                                 else{
                                     addFloorToQueue(&q, f, 1);
                                     printf("added floor %d to super-queue, direction up\n", f);
+                                    foundPlace = 1;
                                 }
                                 break;
                             case DIRN_DOWN:
-                                if (f < el.inFloor){
+                                if (f <= el.inFloor){
                                     el.orderList[N_FLOORS-f-1] = f;
                                     printf("added floor %d to elevator-queue, direction down\n", f);
                                     if (el.orderList[el.onOrderNum] == -1){
                                         el.onOrderNum = N_FLOORS -1 -f;
                                     }
+                                    foundPlace = 1;
                                 }
                                 else{
                                     addFloorToQueue(&q, f, 0);
                                     printf("added floor %d to super-queue, direction down\n", f);
+                                    foundPlace = 1;
                                 }
                                 break;
                             default:
-                                addFloorToQueue(&q, f, 1);
+                                printf("DIDN'T FIND PLACE. direction-based");
+                                /*(addFloorToQueue(&q, f, 1);
+                                    foundPlace = 1;)*/
                                 break;
+                            }
+                        }
+                        else if (b == 2){
+                            if ((el.direction == DIRN_UP) & (f >= el.inFloor)){
+                                el.orderList[f] = f;
+                                foundPlace = 1;
+                            }
+                            else if ((el.direction == DIRN_DOWN) & (f <= el.inFloor)){
+                                el.orderList[N_FLOORS-1-f] = f;
+                                foundPlace = 1;
+                            }
+                            else if (el.direction == DIRN_DOWN){
+                                addFloorToQueue(&q, f, 0);
+                                foundPlace = 1;
+                            }
+                            else if (el.direction == DIRN_UP){
+                                addFloorToQueue(&q, f, 1);
+                                foundPlace = 1;
                             }
                         }
                         else{
@@ -95,15 +110,23 @@ int main(){
                             case 0:
                                 addFloorToQueue(&q, f, 1);
                                 printf("added floor %d to super-queue, direction up\n", f);
+                                foundPlace = 1;
                                 break;
                             case 1:
                                 addFloorToQueue(&q, f, 0);
                                 printf("added floor %d to super-queue, direction down\n", f);
+                                foundPlace = 1;
                                 break;
                             default:
-                                addFloorToQueue(&q, f, 1);
+                                /*addFloorToQueue(&q, f, 1);
+                                foundPlace = 1;*/
+                                printf("DIDN'T FIND PLACE. non-direction-based");
                                 break;
                             }
+                        }
+                        elevio_buttonLamp(f, b, foundPlace);
+                        if (foundPlace == 0){
+                            printf("ERROR, didn't find place for order");
                         }
                         printQandE(&q, &el); //DEBUG
                     }

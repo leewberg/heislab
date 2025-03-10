@@ -32,20 +32,21 @@ void addFloorToQueue(Queue *q, int floor, int dir){
         printf("queue is full, not taking any more orders\n"); //if we get to this point, we've done something wrong
         return;
     }*/
-    switch (dir)
-    {
-    case 0: //going down
-        q->arr[0][1][N_FLOORS - 1 - floor] = floor;
-        q-> back ++;
-        break;
-    case 1:
-        q->arr[1][1][floor] = floor;
-        q->back++;
-        break;
-    default:
-        printf("cannot add element to queue. didn't find place to put it\n");
-        break;
-    }
+    switch (dir){
+        case 0: //going down
+            q->arr[0][1][N_FLOORS - 1 - floor] = floor;
+            q-> back ++;
+            printf("added %d to queue, going down\n", floor);
+            break;
+        case 1:
+            q->arr[1][1][floor] = floor;
+            q->back++;
+            printf("added %d to queue, going up\n", floor);
+            break;
+        default:
+            printf("cannot add element to queue. didn't find place to put it\n");
+            break;
+        }
 }
 
 

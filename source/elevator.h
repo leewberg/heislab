@@ -15,6 +15,7 @@ typedef struct{
     volatile int doorOpenCount;
     int justStopped;
     MotorDirection lastKnownDirection;
+    MotorDirection direction;
 } Elevator;
 
 void goToFloor(Elevator* el, int floor, Queue* q);
