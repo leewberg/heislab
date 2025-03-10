@@ -17,7 +17,6 @@ void initQ (Queue* q){
 
 //checks if the queue is empty
 int isEmpty(Queue* q){
-    printf("front: %d back: %d\n", q->front, q->back);
     return (q->front == q -> back - 1);
 
 }
@@ -37,32 +36,16 @@ void addFloorToQueue(Queue *q, int floor, int dir){
     {
     case 0: //going down
         q->arr[0][1][N_FLOORS - 1 - floor] = floor;
-        printf("order succesfully added\n");
         q-> back ++;
         break;
     case 1:
         q->arr[1][1][floor] = floor;
         q->back++;
-        printf("order succesfully added\n");
         break;
     default:
         printf("cannot add element to queue. didn't find place to put it\n");
         break;
     }
-
-    /*
-    old code
-    if (q -> arr[q->front+1][0][0] == dir){ //and floor not already in queue
-        q -> arr[(q->front+1)%N_FLOORS][1][N_FLOORS-1] = floor; 
-    }
-    else if (q -> arr[q->front+2][0][0] == dir){
-        q -> arr[q->front+2][1][N_FLOORS-1] = floor;
-    }
-    else{//must create array if not already dir in queue
-        q -> arr[q->back][0][0] = dir;
-        q -> arr[q->back][1][0] = floor;
-    }
-    q -> back ++;*/
 }
 
 

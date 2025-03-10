@@ -20,9 +20,8 @@ typedef struct{
 void goToFloor(Elevator* el, int floor, Queue* q);
 void wipeOrders(Elevator* el);
 void initElevator(Elevator* el, Queue* q);
-void stopButton(Elevator* el, Queue* q);
 void getnextElement(Queue *q, Elevator* el);
-void iGetKnockedDown(Elevator* el);
+void iGetKnockedDown(Elevator* el, Queue* q);
 void ButIGetUpAgain(Elevator* el, Queue* q);
 
 void printQandE(Queue* q, Elevator* el);

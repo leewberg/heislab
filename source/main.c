@@ -5,6 +5,7 @@
 #include "driver/elevio.h"
 #include "elevator.h"
 
+//ISSUE: elevator queue isn't wiped at stop
 
 
 int main(){
@@ -14,6 +15,7 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     elevio_motorDirection(DIRN_UP);
+    extLightIndicators();
     Queue q;
     initQ(&q);
     Elevator el;
@@ -21,19 +23,8 @@ int main(){
 
 
     while(1){
-        /*
-        Spaghetti-code:
-        * check floor and update elevator
-        * check if any buttons are pressed, and add them to queue if they are pressed (need logic to decide where the order is placed (elevator or general queue))
-        * go to floor of current element in elevator queue
-        * check if we have an obstruction
-        * check if the stop button is pressed
-        * check that all the lights that are in the order lists are pressed (maybe not, see README.md)
-        * 
-        * maybe have an if at the start of the loop that checks for stop, so that we don't add orders and then clear them when the stop button is pressed (efficiency and all that)
-        */
         if (elevio_stopButton()){
-            iGetKnockedDown(&el);
+            iGetKnockedDown(&el, &q);
         }
         else if (el.justStopped){
             ButIGetUpAgain(&el, &q);
@@ -71,6 +62,9 @@ int main(){
                                 if (f > el.inFloor){
                                     el.orderList[f] = f;
                                     printf("added floor %d to elevator queue\n", f);
+                                    if (el.orderList[el.onOrderNum] == -1){
+                                        el.onOrderNum = f;
+                                    }
                                 }
                                 else{
                                     addFloorToQueue(&q, f, 1);
@@ -81,6 +75,9 @@ int main(){
                                 if (f < el.inFloor){
                                     el.orderList[N_FLOORS-f-1] = f;
                                     printf("added floor %d to elevator-queue, direction down\n", f);
+                                    if (el.orderList[el.onOrderNum] == -1){
+                                        el.onOrderNum = N_FLOORS -1 -f;
+                                    }
                                 }
                                 else{
                                     addFloorToQueue(&q, f, 0);
@@ -88,10 +85,8 @@ int main(){
                                 }
                                 break;
                             default:
+                                addFloorToQueue(&q, f, 1);
                                 break;
-                            }
-                            if (el.orderList[el.onOrderNum] == -1){
-                                el.onOrderNum =0;
                             }
                         }
                         else{
@@ -106,6 +101,7 @@ int main(){
                                 printf("added floor %d to super-queue, direction down\n", f);
                                 break;
                             default:
+                                addFloorToQueue(&q, f, 1);
                                 break;
                             }
                         }
