@@ -22,7 +22,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     }
 
     else if (el -> inFloor == floor){ //once we've reached our floor
-        if ((el->doorOpenCount) >= 3){ //if the doors have been open for 3 seconds
+        if ((el->doorOpenCount) >= 3*10){ //if the doors have been open for 3 seconds
             //real: doorOpenCount >= 3*LOOPTIME
             printf("order completed\n");
             el->orderList[el->onOrderNum] = -1;
@@ -47,6 +47,10 @@ void goToFloor(Elevator* el, int floor, Queue* q){
             else if (el->lastKnownDirection == DIRN_UP){
                 elevio_buttonLamp(floor, 0, 0);
                 elevio_buttonLamp(floor, 2, 0);
+            }
+            if (el->inFloor == 3 | el->inFloor == 0){
+                elevio_buttonLamp(floor, 1, 0);
+                elevio_buttonLamp(floor, 0, 0);
             }
         }
         else{

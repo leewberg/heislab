@@ -68,7 +68,7 @@ int main(){
                         if ((el.lastKnownDirection == DIRN_UP & b == 0) | (el.lastKnownDirection == DIRN_DOWN & b == 1) | b == 2){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
                             switch (el.lastKnownDirection){
                             case DIRN_UP:
-                                if (f >= el.inFloor){
+                                if (f > el.inFloor){
                                     el.orderList[f] = f;
                                     printf("added floor %d to elevator queue\n", f);
                                 }
@@ -78,7 +78,7 @@ int main(){
                                 }
                                 break;
                             case DIRN_DOWN:
-                                if (f <= el.inFloor){
+                                if (f < el.inFloor){
                                     el.orderList[N_FLOORS-f-1] = f;
                                     printf("added floor %d to elevator-queue, direction down\n", f);
                                 }
