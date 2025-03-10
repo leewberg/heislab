@@ -1,6 +1,16 @@
 #include "elevator.h"
 
 void goToFloor(Elevator* el, int floor, Queue* q){
+    if (el->orderList[el->onOrderNum] == -1){ //if the current order is invalid
+        if (el->onOrderNum == N_FLOORS -1){
+            getnextElement(q, el);
+        }
+        else{
+            el->onOrderNum += 1;
+        }
+        return;
+    }
+
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
         elevio_motorDirection(DIRN_UP);
         el -> lastKnownDirection = DIRN_UP; //saving these in case we stop between floors
@@ -12,17 +22,24 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     }
 
     else if (el -> inFloor == floor){ //once we've reached our floor
-        if ((el->doorOpenCount*LOOPTIME) >= 3*LOOPTIME){ //if the doors have been open for 3 seconds
-            //commented this out as the queue isn't fully realized yet
-            /*if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
+        if ((el->doorOpenCount) >= 3){ //if the doors have been open for 3 seconds
+            //real: doorOpenCount >= 3*LOOPTIME
+            printf("order completed\n");
+            el->orderList[el->onOrderNum] = -1;
+            if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
                 getnextElement(q, el);
+                printf("getting next order from queue\n");
+                el -> doorOpenCount = 0;
+                el -> doorsOpen = 0;
             }
             else{
+                printf("increasing place in elevator order list \n");
                 el -> onOrderNum += 1;
+                printf("%d\n", el->onOrderNum);
                 //need to check if the next elemnt is -1. if so, we go further
-            }*/
-            el -> doorOpenCount = 0;
-            el -> doorsOpen = 0;
+                el -> doorOpenCount = 0;
+                el -> doorsOpen = 0;
+            }
             if (el-> lastKnownDirection == DIRN_DOWN){ //if we were going down, and the order is completed, we extinguish the lights for the call-button for down on that floor and the cab-light for that floor
                 elevio_buttonLamp(floor, 1, 0);
                 elevio_buttonLamp(floor, 2, 0);
@@ -44,7 +61,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
 
 void wipeOrders(Elevator* el){
     for (int i = 0; i < N_FLOORS; i++){
-        el -> orderList[i] = 0;
+        el -> orderList[i] = -1;
     } //nullifies all orders
 }
 
@@ -80,14 +97,23 @@ void stopButton(Elevator* el, Queue* q){
 //returns the element at the start of the queue. also removes said element from the queue by moving the front up one value.
 void getnextElement(Queue *q, Elevator* el){
     el -> onOrderNum = 0; //start the order-queue from scratch
-    if (isEmpty(q)){
+    if (isEmpty(q)){ //FEIL HER?
         //can be used to stop the elevator when no further orders
+        printf("q front: %d", (q->front+1)%MAX_SIZE);
+        elevio_motorDirection(DIRN_STOP);
+        printf("no orders, on standby\n");
+        //in theory the doors will close on their own as long as they've been open dor 3 seconds and we don't have any new orders. if not, here is the place we will close the doors
         return;
     }
-    for (int i = 0; i<N_FLOORS; i++){
-        el -> orderList[i] = q->arr[q->front+1][1][i];
+    else{
+        for (int i = 0; i<N_FLOORS; i++){
+            int index = (q->front+1)%MAX_SIZE;
+            el -> orderList[i] = q->arr[index][1][i];
+            q->arr[index][1][i] = -1; //nullifies the previous element, getting it ready for the next batch of orders
+        }
+        q -> front += 1;
+        q -> back -= 1;
     }
-    q -> front += 1;
 }
 
 void iGetKnockedDown(Elevator* el){
@@ -127,13 +153,13 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
 void printQandE(Queue* q, Elevator* el){
     printf("Queue: \n");
     for (int i = 0; i < MAX_SIZE; i++){
+        printf("direction %d\n",i);
         for (int j = 0; j < N_FLOORS; j++){
             printf("%d \n", q ->arr[i][1][j]);
         }
-        printf("new element\n");
     }
 
-    printf("Elevator Queue: \n");
+    printf("Elevator Queue: \ngoing %d\n", el->lastKnownDirection);
     for (int i = 0; i < N_FLOORS; i++){
         printf("%d \n", el->orderList[i]);
     }
