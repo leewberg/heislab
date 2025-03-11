@@ -5,6 +5,7 @@
 #include "driver/elevio.h"
 #include "lights.h"
 #define MAX_SIZE 2
+#pragma once
 
 
 
@@ -14,7 +15,7 @@ typedef struct{
     int front;
 }Queue;
 
-//for child struct
+
 void initQ (Queue* q);
 int isFull(Queue *q);
 int isEmpty(Queue* q);
@@ -25,11 +26,9 @@ void wipeQueue(Queue* q);
 /*
 example Queue:
 queue q = {
-    {{0, 0, 0, 0}, {4, 3, 2, 1}}, //this is an order where we go down from level 4
-    {{1, 0, 0, 0}, {2, 3, 4, 0}} //this is an order where we go up from level 1
+    {{0, 0, 0, 0}, {3, 2, 1, 0}}, //this is an order where we go down from level 4 and stop by every floor
+    {{1, 0, 0, 0}, {0, 1, -1, 3}} //this is an order where we go up from level 1 and stop in every floor except the third
 }
-
-must then ignore 0 when sorting the orders. alternatively: ignore 0 when executing the orders
 
 
 if the first element is 0, the elevator is supposed to go down on that run

@@ -4,6 +4,7 @@
 #include <time.h>
 #include "driver/elevio.h"
 #include "queue.h"
+#pragma once
 #define LOOPTIME 1000*1000
 
 typedef struct{
