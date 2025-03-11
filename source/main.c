@@ -49,9 +49,12 @@ int main(){
                         if ((el.direction == DIRN_UP & b == 0) | (el.direction == DIRN_DOWN & b == 1)){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
                             switch (el.direction){
                             case DIRN_UP:
-                                if (f >= el.orderList[el.onOrderNum]){
+                                if (f >= el.inFloor){
                                     el.orderList[f] = f;
                                     printf("added floor %d to elevator queue\n", f);
+                                    if (f < el.orderList[el.onOrderNum]){
+                                        el.onOrderNum = f;
+                                    }
                                     if (el.orderList[el.onOrderNum] == -1){
                                         el.onOrderNum = f;
                                         printf("changed order number\n");
@@ -65,9 +68,12 @@ int main(){
                                 }
                                 break;
                             case DIRN_DOWN:
-                                if (f <= el.orderList[el.onOrderNum]){
+                                if (f <= el.inFloor){
                                     el.orderList[N_FLOORS-f-1] = f;
                                     printf("added floor %d to elevator-queue, direction down\n", f);
+                                    if (f > el.orderList[el.onOrderNum]){
+                                        el.onOrderNum = N_FLOORS - 1 - f;
+                                    }
                                     if (el.orderList[el.onOrderNum] == -1){
                                         el.onOrderNum = N_FLOORS -1 -f;
                                     }
@@ -87,13 +93,19 @@ int main(){
                             }
                         }
                         else if (b == 2){
-                            if ((el.direction == DIRN_UP) & (f > el.orderList[el.onOrderNum])){
+                            if ((el.direction == DIRN_UP) & (f > el.inFloor)){
                                 el.orderList[f] = f;
                                 foundPlace = 1;
+                                if (f < el.orderList[el.onOrderNum]){
+                                    el.onOrderNum = f;
+                                }
                             }
-                            else if ((el.direction == DIRN_DOWN) & (f < el.orderList[el.onOrderNum])){
+                            else if ((el.direction == DIRN_DOWN) & (f < el.inFloor)){
                                 el.orderList[N_FLOORS-1-f] = f;
                                 foundPlace = 1;
+                                if (f > el.orderList[el.onOrderNum]){
+                                    el.onOrderNum = N_FLOORS -1 -f;
+                                }
                             }
                             else if (el.direction == DIRN_DOWN){
                                 addFloorToQueue(&q, f, 0);
