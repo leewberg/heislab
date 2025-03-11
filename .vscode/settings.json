@@ -5,5 +5,13 @@
         "vector": "c",
         "string_view": "c",
         "random": "c"
-    }
+    },
+    "C_Cpp.autocompleteAddParentheses": true,
+    "C_Cpp.inlayHints.autoDeclarationTypes.enabled": true,
+    "editor.tabCompletion": "on",
+    "editor.suggest.showColors": true,
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingComments": "always",
+    "editor.autoClosingQuotes": "always",
+    "explorer.excludeGitIgnore": true
 }

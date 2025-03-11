@@ -5,6 +5,7 @@
 #include "driver/elevio.h"
 #include "elevator.h"
 
+//ISSUE: elevator skips floors
 
 
 int main(){
@@ -14,25 +15,16 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     elevio_motorDirection(DIRN_UP);
+    extLightIndicators();
     Queue q;
+    initQ(&q);
     Elevator el;
     initElevator(&el, &q);
 
 
     while(1){
-        /*
-        Spaghetti-code:
-        * check floor and update elevator
-        * check if any buttons are pressed, and add them to queue if they are pressed (need logic to decide where the order is placed (elevator or general queue))
-        * go to floor of current element in elevator queue
-        * check if we have an obstruction
-        * check if the stop button is pressed
-        * check that all the lights that are in the order lists are pressed (maybe not, see README.md)
-        * 
-        * maybe have an if at the start of the loop that checks for stop, so that we don't add orders and then clear them when the stop button is pressed (efficiency and all that)
-        */
         if (elevio_stopButton()){
-            iGetKnockedDown(&el);
+            iGetKnockedDown(&el, &q);
         }
         else if (el.justStopped){
             ButIGetUpAgain(&el, &q);
@@ -44,25 +36,99 @@ int main(){
                 elevio_floorIndicator(floor);
             }
 
-            if(floor == 0){ //if we're at the bottom, change directions
-                elevio_motorDirection(DIRN_UP);
-                el.lastKnownDirection = DIRN_UP;
-            }
+            goToFloor(&el, el.orderList[el.onOrderNum], &q); 
+            //sets elevator to go to the floor of its next queue-element
 
-            if(floor == N_FLOORS-1){ //if we're at the top, change directions
-                elevio_motorDirection(DIRN_DOWN);
-                el.lastKnownDirection = DIRN_DOWN;
-            }
-
-            goToFloor(&el, el.orderList[el.onOrderNum], &q); //sets elevator to go to the floor of it's next 
-
-            //checks which buttons have been pressed
-            //can use this to instead of just lighting the indicators when the button is pressed and then extinguising it, we instead use it to recieve orders and add the to the que
             for(int f = 0; f < N_FLOORS; f++){ //f: floor
                 for(int b = 0; b < N_BUTTONS; b++){ //b: button on each floor
                     int btnPressed = elevio_callButton(f, b); //bool that tells us if button is pressed
+
                     if (btnPressed){
-                        elevio_buttonLamp(f, b, 1);
+                        int foundPlace = 0;
+                        //TODO: compress to cleaner code
+                        if ((el.direction == DIRN_UP & b == 0) | (el.direction == DIRN_DOWN & b == 1)){ //if the outside-button is in the same direction we're going, or if a cab-button is getting pressed
+                            switch (el.direction){
+                            case DIRN_UP:
+                                if (f >= el.orderList[el.onOrderNum]){
+                                    el.orderList[f] = f;
+                                    printf("added floor %d to elevator queue\n", f);
+                                    if (el.orderList[el.onOrderNum] == -1){
+                                        el.onOrderNum = f;
+                                        printf("changed order number\n");
+                                    }
+                                    foundPlace = 1;
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 1);
+                                    printf("added floor %d to super-queue, direction up\n", f);
+                                    foundPlace = 1;
+                                }
+                                break;
+                            case DIRN_DOWN:
+                                if (f <= el.orderList[el.onOrderNum]){
+                                    el.orderList[N_FLOORS-f-1] = f;
+                                    printf("added floor %d to elevator-queue, direction down\n", f);
+                                    if (el.orderList[el.onOrderNum] == -1){
+                                        el.onOrderNum = N_FLOORS -1 -f;
+                                    }
+                                    foundPlace = 1;
+                                }
+                                else{
+                                    addFloorToQueue(&q, f, 0);
+                                    printf("added floor %d to super-queue, direction down\n", f);
+                                    foundPlace = 1;
+                                }
+                                break;
+                            default:
+                                printf("DIDN'T FIND PLACE. direction-based");
+                                /*(addFloorToQueue(&q, f, 1);
+                                    foundPlace = 1;)*/
+                                break;
+                            }
+                        }
+                        else if (b == 2){
+                            if ((el.direction == DIRN_UP) & (f > el.orderList[el.onOrderNum])){
+                                el.orderList[f] = f;
+                                foundPlace = 1;
+                            }
+                            else if ((el.direction == DIRN_DOWN) & (f < el.orderList[el.onOrderNum])){
+                                el.orderList[N_FLOORS-1-f] = f;
+                                foundPlace = 1;
+                            }
+                            else if (el.direction == DIRN_DOWN){
+                                addFloorToQueue(&q, f, 0);
+                                foundPlace = 1;
+                            }
+                            else if (el.direction == DIRN_UP){
+                                addFloorToQueue(&q, f, 1);
+                                foundPlace = 1;
+                            }
+                        }
+                        else{
+                            //addFloorToQueue(&q, f, ((b+1)%2));
+                            switch (b){
+                            case 0:
+                                addFloorToQueue(&q, f, 1);
+                                printf("added floor %d to super-queue, direction up\n", f);
+                                foundPlace = 1;
+                                break;
+                            case 1:
+                                addFloorToQueue(&q, f, 0);
+                                printf("added floor %d to super-queue, direction down\n", f);
+                                foundPlace = 1;
+                                break;
+                            default:
+                                /*addFloorToQueue(&q, f, 1);
+                                foundPlace = 1;*/
+                                printf("DIDN'T FIND PLACE. non-direction-based");
+                                break;
+                            }
+                        }
+                        elevio_buttonLamp(f, b, foundPlace);
+                        if (foundPlace == 0){
+                            printf("ERROR, didn't find place for order");
+                        }
+                        printQandE(&q, &el); //DEBUG
                     }
                 }
             }
