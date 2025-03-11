@@ -5,7 +5,7 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
     switch (el -> direction){
     case DIRN_UP:
         if (b == 0 | b == 2){
-            if (f >= el->inFloor){
+            if (f > el->inFloor){
                 el->orderList[f] = f;
                 printf("added floor %d to elevator queue\n", f);
                 if (f < el->orderList[el->onOrderNum]){
@@ -28,7 +28,7 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
     
     case DIRN_DOWN:
         if (b == 1 | b == 2){
-            if (f <= el->inFloor){
+            if (f < el->inFloor){
                 el->orderList[N_FLOORS-f-1] = f;
                 printf("added floor %d to elevator-queue, direction down\n", f);
                 if (f > el->orderList[el->onOrderNum]){
