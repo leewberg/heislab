@@ -92,29 +92,20 @@ void initElevator(Elevator* el, Queue* q){
 
 //returns the element at the start of the queue. also removes said element from the queue by moving the front up one value.
 void getnextElement(Queue *q, Elevator* el){
-    el -> onOrderNum = 0; //start the order-queue from scratch
-    /*if (isEmpty(q)){ //FEIL HER?
-        //can be used to stop the elevator when no further orders
-        elevio_motorDirection(DIRN_STOP);
-        printf("no orders, on standby\n");
-        elevio_doorOpenLamp(0);
-        return;
+    el -> onOrderNum = 0; 
+    int index = (q->front+1)%MAX_SIZE;
+    for (int i = 0; i<N_FLOORS; i++){
+        el -> orderList[i] = q->arr[index][1][i];
+        q->arr[index][1][i] = -1; //nullifies the previous element, getting it ready for the next batch of orders
     }
-    else{*/
-        int index = (q->front+1)%MAX_SIZE;
-        for (int i = 0; i<N_FLOORS; i++){
-            el -> orderList[i] = q->arr[index][1][i];
-            q->arr[index][1][i] = -1; //nullifies the previous element, getting it ready for the next batch of orders
-        }
-        if (q->arr[index][0][0]==0){
-            el -> direction = DIRN_DOWN;
-        }
-        else{
-            el -> direction = DIRN_UP;
-        }
-        q -> front += 1;
-        q -> back -= 1;
-    //}
+    if (q->arr[index][0][0]==0){
+        el -> direction = DIRN_DOWN;
+    }
+    else{
+        el -> direction = DIRN_UP;
+    }
+    q -> front += 1;
+    q -> back -= 1;
 }
 
 void iGetKnockedDown(Elevator* el, Queue* q){
@@ -145,6 +136,7 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
             el->justStopped = 0;
             elevio_stopLamp(0);
             elevio_doorOpenLamp(0);
+            initQ((q));
         }
         else{
             elevio_motorDirection(DIRN_STOP);
