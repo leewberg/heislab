@@ -11,14 +11,11 @@
 
 typedef struct{
     int arr[MAX_SIZE][2][N_FLOORS];
-    int back;
     int front;
 }Queue;
 
 
 void initQ (Queue* q);
-int isFull(Queue *q);
-int isEmpty(Queue* q);
 void addFloorToQueue(Queue *q, int floor, int dir);
 void wipeQueue(Queue* q);
 

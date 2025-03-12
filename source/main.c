@@ -47,8 +47,6 @@ int main(){
                 }
             }
 
-
-
             if(elevio_obstruction()){ //checks if we have an obstruction
                 elevio_stopLamp(1);
                 el.doorOpenCount = 0;
@@ -59,7 +57,7 @@ int main(){
 
         }
         
-        nanosleep(&(struct timespec){0, LOOPTIME}, NULL); //can use this to keep track of how long doors have been open
+        nanosleep(&(struct timespec){0, LOOPTIME}, NULL);
     }
 
     return 0;

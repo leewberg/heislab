@@ -25,7 +25,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     }
 
     else if (el -> inFloor == floor){ //once we've reached our floor
-        if ((el->doorOpenCount) >= 3*10){ //if the doors have been open for 3 seconds
+        if ((el->doorOpenCount) >= RATIO/50){ //if the doors have been open for 3 seconds. add room for some extra nanoseconds outside of the looptime just so the program itself has time to run
             printf("order completed\n");
             if (el->orderList[el->onOrderNum] == floor | el-> lastKnownDirection == DIRN_UP){ //we have been going upwards
                 elevio_buttonLamp(floor, 0, 0);
@@ -47,7 +47,6 @@ void goToFloor(Elevator* el, int floor, Queue* q){
                 el -> doorOpenCount = 0;
                 el -> doorsOpen = 0;
             }
-            //el->orderList[el->onOrderNum] = -1;
         }
         else{
             el ->doorOpenCount ++;
@@ -105,7 +104,6 @@ void getnextElement(Queue *q, Elevator* el){
         el -> direction = DIRN_UP;
     }
     q -> front += 1;
-    q -> back -= 1;
 }
 
 void iGetKnockedDown(Elevator* el, Queue* q){
@@ -131,12 +129,11 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
         }
     }
     if (el->inFloor == elevio_floorSensor()){ //once in a floor, keep doors open
-        if (el -> doorOpenCount >=3*10){
+        if (el -> doorOpenCount >= RATIO/10){ //if the doors have been open for 3s
             el-> doorOpenCount = 0;
             el->justStopped = 0;
             elevio_stopLamp(0);
             elevio_doorOpenLamp(0);
-            initQ((q));
         }
         else{
             elevio_motorDirection(DIRN_STOP);
@@ -146,7 +143,7 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
     }
 }
 
-void printQandE(Queue* q, Elevator* el){
+void printQandE(Queue* q, Elevator* el){ //used for debugging
     printf("Queue: \n");
     for (int i = 0; i < MAX_SIZE; i++){
         printf("direction %d:\n",i);

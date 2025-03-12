@@ -15,23 +15,8 @@ void initQ (Queue* q){
     }
 }
 
-//checks if the queue is empty
-int isEmpty(Queue* q){
-    return (q->front == q -> back - 1);
-
-}
-
-//checks if the queue is full
-int isFull(Queue *q) {
-    return (q -> back + q->front +1 == MAX_SIZE);
-}
-
 //adds an element to the queue
 void addFloorToQueue(Queue *q, int floor, int dir){
-    /*if (isFull(q)){
-        printf("queue is full, not taking any more orders\n"); //if we get to this point, we've done something wrong
-        return;
-    }*/
     switch (dir){
         case 0: //going down
             q->arr[0][1][N_FLOORS - 1 - floor] = floor;
@@ -52,8 +37,7 @@ void addFloorToQueue(Queue *q, int floor, int dir){
 
 //removes everything from the queue
 void wipeQueue(Queue* q){
-    q -> front = (q -> back -1);
-    //Nicolay's additions
+    q -> front = -1;
     extLightIndicators(); // extinguish all lights
     for (int f = 0; f < N_FLOORS; f++) { // nullify all elements in the queue (set to -1) 
         q -> arr[0][1][f] = -1;
