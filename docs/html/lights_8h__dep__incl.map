@@ -1,0 +1,11 @@
+<map id="source/lights.h" name="source/lights.h">
+<area shape="rect" id="node1" title="Contains function to extinguish all light&#45;indicators." alt="" coords="164,5,281,32"/>
+<area shape="rect" id="node2" href="$lights_8c_source.html" title=" " alt="" coords="94,80,210,107"/>
+<area shape="rect" id="node3" href="$queue_8h.html" title="Functions needed to do operations on the queue and the struct for the queue itself." alt="" coords="234,80,355,107"/>
+<area shape="rect" id="node4" href="$elevator_8h.html" title="h&#45;file containing functions needed for the elevator and the elevator&#45;struct itself" alt="" coords="151,155,286,181"/>
+<area shape="rect" id="node9" href="$queue_8c_source.html" title=" " alt="" coords="311,155,431,181"/>
+<area shape="rect" id="node5" href="$elevator_8c_source.html" title=" " alt="" coords="5,229,139,256"/>
+<area shape="rect" id="node6" href="$logic_8h.html" title="Contains the function needed to sort the order for a floor once a button for that floor is pressed." alt="" coords="163,229,275,256"/>
+<area shape="rect" id="node8" href="$main_8c_source.html" title=" " alt="" coords="255,304,369,331"/>
+<area shape="rect" id="node7" href="$logic_8c_source.html" title=" " alt="" coords="121,304,231,331"/>
+</map>

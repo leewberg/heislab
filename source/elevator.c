@@ -61,7 +61,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
 void wipeOrders(Elevator* el){
     for (int i = 0; i < N_FLOORS; i++){
         el -> orderList[i] = -1;
-    } //nullifies all orders
+    }
 }
 
 
@@ -89,7 +89,7 @@ void initElevator(Elevator* el, Queue* q){
 }
 
 
-//returns the element at the start of the queue. also removes said element from the queue by moving the front up one value.
+
 void getnextElement(Queue *q, Elevator* el){
     el -> onOrderNum = 0; 
     int index = (q->front+1)%MAX_SIZE;
@@ -106,6 +106,7 @@ void getnextElement(Queue *q, Elevator* el){
     q -> front += 1;
 }
 
+
 void iGetKnockedDown(Elevator* el, Queue* q){
     elevio_stopLamp(1);
     elevio_motorDirection(DIRN_STOP);
@@ -117,6 +118,7 @@ void iGetKnockedDown(Elevator* el, Queue* q){
     }
 
 }
+
 
 void ButIGetUpAgain(Elevator* el, Queue* q){
     if (elevio_floorSensor() == -1){//if we're between two floors
@@ -143,7 +145,8 @@ void ButIGetUpAgain(Elevator* el, Queue* q){
     }
 }
 
-void printQandE(Queue* q, Elevator* el){ //used for debugging
+
+void printQandE(Queue* q, Elevator* el){
     printf("Queue: \n");
     for (int i = 0; i < MAX_SIZE; i++){
         printf("direction %d:\n",i);

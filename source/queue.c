@@ -1,9 +1,8 @@
 #include "queue.h"
 
-//initializes the queue
+
 void initQ (Queue* q){ 
     q -> front = -1;
-    q -> back = 0;
     //initialize q w/ all invalid floors
     for (int i = 0; i < MAX_SIZE; i ++){
         q -> arr[i][0][0] = i;
@@ -15,17 +14,14 @@ void initQ (Queue* q){
     }
 }
 
-//adds an element to the queue
 void addFloorToQueue(Queue *q, int floor, int dir){
     switch (dir){
         case 0: //going down
             q->arr[0][1][N_FLOORS - 1 - floor] = floor;
-            q-> back ++;
             printf("added %d to queue, going down\n", floor);
             break;
         case 1:
             q->arr[1][1][floor] = floor;
-            q->back++;
             printf("added %d to queue, going up\n", floor);
             break;
         default:
@@ -35,7 +31,6 @@ void addFloorToQueue(Queue *q, int floor, int dir){
 }
 
 
-//removes everything from the queue
 void wipeQueue(Queue* q){
     q -> front = -1;
     extLightIndicators(); // extinguish all lights
