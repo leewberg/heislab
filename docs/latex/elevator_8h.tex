@@ -11,16 +11,14 @@ h-\/file containing functions needed for the elevator and the elevator-\/struct 
 {\ttfamily \#include $<$time.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}driver/elevio.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\newline
-Include dependency graph for elevator.\+h\+:
-\nopagebreak
+Include dependency graph for elevator.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{elevator_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -52,9 +50,9 @@ void \mbox{\hyperlink{elevator_8h_ab2fbf9a33a1d9a252cebb53d74e03a78}{init\+Eleva
 \begin{DoxyCompactList}\small\item\em Initializes the elevator. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{elevator_8h_af9e5218c741993b6a30d59aa8417d5f1}{getnext\+Element}} (\mbox{\hyperlink{structQueue}{Queue}} $\ast$q, \mbox{\hyperlink{structElevator}{Elevator}} $\ast$el)
 \begin{DoxyCompactList}\small\item\em Returns the element at the start of the \mbox{\hyperlink{structQueue}{Queue}}. Also removes said element from the queue by moving the front up one value and nullifying the \mbox{\hyperlink{structQueue}{Queue}} element we\textquotesingle{}re extracting from the queue. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{elevator_8h_a377d1c73240c24b308f250b617493f3c}{i\+Get\+Knocked\+Down}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$el, \mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
+void \mbox{\hyperlink{elevator_8h_ad476e09572ce36c91aec3e1bb9dd1843}{stop\+Button}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$el, \mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
 \begin{DoxyCompactList}\small\item\em Function to deal with stop button being pressed. Stops elevator and wipes all orders + lights. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{elevator_8h_a991badd333d606275058f4be290f92cc}{But\+IGet\+Up\+Again}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$el, \mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
+void \mbox{\hyperlink{elevator_8h_a417c56c88249e345b9654f02d59d55c8}{return\+After\+Stop}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$el, \mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
 \begin{DoxyCompactList}\small\item\em Function to run when the elevator has just been stopped to return it to its previous state before it can continue as usual. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{elevator_8h_aecc5939f311c0074d77b3d19ceceed28}{print\+QandE}} (\mbox{\hyperlink{structQueue}{Queue}} $\ast$q, \mbox{\hyperlink{structElevator}{Elevator}} $\ast$el)
 \begin{DoxyCompactList}\small\item\em Prints all elements in the big and elevator queue. mainly used for debugging. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -78,27 +76,6 @@ Copyright (c) 2025
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{elevator_8h_a991badd333d606275058f4be290f92cc}\label{elevator_8h_a991badd333d606275058f4be290f92cc}} 
-\index{elevator.h@{elevator.h}!ButIGetUpAgain@{ButIGetUpAgain}}
-\index{ButIGetUpAgain@{ButIGetUpAgain}!elevator.h@{elevator.h}}
-\doxysubsubsection{\texorpdfstring{ButIGetUpAgain()}{ButIGetUpAgain()}}
-{\footnotesize\ttfamily void But\+IGet\+Up\+Again (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
-
-
-
-Function to run when the elevator has just been stopped to return it to its previous state before it can continue as usual. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em el} & \mbox{\hyperlink{structElevator}{Elevator}} \\
-\hline
-\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line 123 of file elevator.\+c.
-
 \mbox{\Hypertarget{elevator_8h_af9e5218c741993b6a30d59aa8417d5f1}\label{elevator_8h_af9e5218c741993b6a30d59aa8417d5f1}} 
 \index{elevator.h@{elevator.h}!getnextElement@{getnextElement}}
 \index{getnextElement@{getnextElement}!elevator.h@{elevator.h}}
@@ -143,27 +120,6 @@ Moves the elevator to the next florr on its order list.
 
 Definition at line 3 of file elevator.\+c.
 
-\mbox{\Hypertarget{elevator_8h_a377d1c73240c24b308f250b617493f3c}\label{elevator_8h_a377d1c73240c24b308f250b617493f3c}} 
-\index{elevator.h@{elevator.h}!iGetKnockedDown@{iGetKnockedDown}}
-\index{iGetKnockedDown@{iGetKnockedDown}!elevator.h@{elevator.h}}
-\doxysubsubsection{\texorpdfstring{iGetKnockedDown()}{iGetKnockedDown()}}
-{\footnotesize\ttfamily void i\+Get\+Knocked\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
-
-
-
-Function to deal with stop button being pressed. Stops elevator and wipes all orders + lights. 
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em el} & \mbox{\hyperlink{structElevator}{Elevator}} \\
-\hline
-\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line 110 of file elevator.\+c.
-
 \mbox{\Hypertarget{elevator_8h_ab2fbf9a33a1d9a252cebb53d74e03a78}\label{elevator_8h_ab2fbf9a33a1d9a252cebb53d74e03a78}} 
 \index{elevator.h@{elevator.h}!initElevator@{initElevator}}
 \index{initElevator@{initElevator}!elevator.h@{elevator.h}}
@@ -205,6 +161,48 @@ Prints all elements in the big and elevator queue. mainly used for debugging.
 
 
 Definition at line 149 of file elevator.\+c.
+
+\mbox{\Hypertarget{elevator_8h_a417c56c88249e345b9654f02d59d55c8}\label{elevator_8h_a417c56c88249e345b9654f02d59d55c8}} 
+\index{elevator.h@{elevator.h}!returnAfterStop@{returnAfterStop}}
+\index{returnAfterStop@{returnAfterStop}!elevator.h@{elevator.h}}
+\doxysubsubsection{\texorpdfstring{returnAfterStop()}{returnAfterStop()}}
+{\footnotesize\ttfamily void return\+After\+Stop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
+
+
+
+Function to run when the elevator has just been stopped to return it to its previous state before it can continue as usual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em el} & \mbox{\hyperlink{structElevator}{Elevator}} \\
+\hline
+\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 123 of file elevator.\+c.
+
+\mbox{\Hypertarget{elevator_8h_ad476e09572ce36c91aec3e1bb9dd1843}\label{elevator_8h_ad476e09572ce36c91aec3e1bb9dd1843}} 
+\index{elevator.h@{elevator.h}!stopButton@{stopButton}}
+\index{stopButton@{stopButton}!elevator.h@{elevator.h}}
+\doxysubsubsection{\texorpdfstring{stopButton()}{stopButton()}}
+{\footnotesize\ttfamily void stop\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
+
+
+
+Function to deal with stop button being pressed. Stops elevator and wipes all orders + lights. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em el} & \mbox{\hyperlink{structElevator}{Elevator}} \\
+\hline
+\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 110 of file elevator.\+c.
 
 \mbox{\Hypertarget{elevator_8h_a31025f46dd2670f579b623d79af805d8}\label{elevator_8h_a31025f46dd2670f579b623d79af805d8}} 
 \index{elevator.h@{elevator.h}!wipeOrders@{wipeOrders}}

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['elevator_3',['Elevator',['../structElevator.html',1,'']]],
-  ['elevator_2eh_4',['elevator.h',['../elevator_8h.html',1,'']]],
-  ['extlightindicators_5',['extLightIndicators',['../lights_8h.html#a00e72c00dd69d616999597b72edfebc8',1,'lights.c']]]
+  ['getnextelement_5',['getnextElement',['../elevator_8h.html#af9e5218c741993b6a30d59aa8417d5f1',1,'elevator.c']]],
+  ['gotofloor_6',['goToFloor',['../elevator_8h.html#a78b1d2ab591f56c4e10d1b6293a063c0',1,'elevator.c']]]
 ];

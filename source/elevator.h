@@ -85,7 +85,7 @@ void getnextElement(Queue *q, Elevator* el);
  * @param[in, out] el Elevator
  * @param[out] q Queue
  */
-void iGetKnockedDown(Elevator* el, Queue* q);
+void stopButton(Elevator* el, Queue* q);
 
 /**
  * @brief Function to run when the elevator has just been stopped to return it to its previous state before it can continue as usual
@@ -93,7 +93,7 @@ void iGetKnockedDown(Elevator* el, Queue* q);
  * @param[in, out] el Elevator
  * @param[out] q Queue
  */
-void ButIGetUpAgain(Elevator* el, Queue* q);
+void returnAfterStop(Elevator* el, Queue* q);
 
 /**
  * @brief Prints all elements in the big and elevator queue. mainly used for debugging

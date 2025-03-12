@@ -107,7 +107,7 @@ void getnextElement(Queue *q, Elevator* el){
 }
 
 
-void iGetKnockedDown(Elevator* el, Queue* q){
+void stopButton(Elevator* el, Queue* q){
     elevio_stopLamp(1);
     elevio_motorDirection(DIRN_STOP);
     wipeOrders(el);
@@ -120,7 +120,7 @@ void iGetKnockedDown(Elevator* el, Queue* q){
 }
 
 
-void ButIGetUpAgain(Elevator* el, Queue* q){
+void returnAfterStop(Elevator* el, Queue* q){
     if (elevio_floorSensor() == -1){//if we're between two floors
         el -> doorOpenCount = 0;
         if (el->lastKnownDirection == DIRN_DOWN){ //if we were previously going down, we have to go up to return to our previous floor

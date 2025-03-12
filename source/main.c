@@ -22,10 +22,10 @@ int main(){
 
     while(1){
         if (elevio_stopButton()){
-            iGetKnockedDown(&el, &q);
+            stopButton(&el, &q);
         }
         else if (el.justStopped){
-            ButIGetUpAgain(&el, &q);
+            returnAfterStop(&el, &q);
         }
         else{
             int floor = elevio_floorSensor(); //sets floor. returns -1 when not in a floor
