@@ -28,7 +28,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
                 if (el->orderList[N_FLOORS - 1 - floor] == floor | el->direction == DIRN_DOWN){ //we have been going downwards
                     elevio_buttonLamp(floor, 1, 0);
                 }
-                if (el->orderList[el->onOrderNum] == floor | el-> direction == DIRN_UP){ //we have been going upwards
+                else if (el->orderList[el->onOrderNum] == floor | el-> direction == DIRN_UP){ //we have been going upwards
                     elevio_buttonLamp(floor, 0, 0);
                 }
                 elevio_buttonLamp(floor, 2, 0);
