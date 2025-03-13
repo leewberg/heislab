@@ -30,7 +30,6 @@
  volatile  
   * @var doorOpenCount Loop iterations the doors have been open for
   * @var justStopped If the elevator just stopped or not
-  * @var lastKnownDirection;  Last direction the elevator was seen driving in
   * @var direction;  Direction of the current order the elevator is on
 
  */
@@ -42,7 +41,6 @@ typedef struct{
     int doorsOpen; 
     volatile int doorOpenCount;
     int justStopped;
-    MotorDirection lastKnownDirection;
     MotorDirection direction;
 } Elevator;
 

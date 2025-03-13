@@ -16,21 +16,19 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     else {
     if (el->inFloor < floor){ //if we're bellow the floor we want to be in
         elevio_motorDirection(DIRN_UP);
-        el -> lastKnownDirection = DIRN_UP; //saving these in case we stop between floors
     }
 
     else if (el->inFloor > floor){
         elevio_motorDirection(DIRN_DOWN);
-        el -> lastKnownDirection = DIRN_DOWN;
     }
 
     else if ((el -> inFloor == floor) & (elevio_floorSensor() != -1)){ //once we've reached our floor
         if ((el->doorOpenCount) >= RATIO/50){ //if the doors have been open for 3 seconds. add room for some extra nanoseconds outside of the looptime just so the program itself has time to run
             printf("order completed\n");
-            if (el->orderList[el->onOrderNum] == floor | el-> lastKnownDirection == DIRN_UP){ //we have been going upwards
+            if (el->orderList[el->onOrderNum] == floor | el-> direction == DIRN_UP){ //we have been going upwards
                 elevio_buttonLamp(floor, 0, 0);
             }
-            if (el->orderList[N_FLOORS - 1 - floor] == floor | el->lastKnownDirection == DIRN_DOWN){ //we have been going downwards
+            if (el->orderList[N_FLOORS - 1 - floor] == floor | el->direction == DIRN_DOWN){ //we have been going downwards
                 elevio_buttonLamp(floor, 1, 0);
             }
             elevio_buttonLamp(floor, 2, 0);
@@ -57,7 +55,6 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     }
     else{//if per example between floors after a stop and cab button is pressed for floor we were in
         elevio_motorDirection(DIRN_UP);
-        el->lastKnownDirection = DIRN_UP;
     }
     }
 }
@@ -83,7 +80,6 @@ void initElevator(Elevator* el, Queue* q){
         }
         goToFloor(el, 0, q);
     }
-    el->lastKnownDirection = DIRN_UP;
     el->direction = DIRN_UP;
     for (int i = 0; i < N_FLOORS; i++){
         el -> orderList[i] = -1;
@@ -120,32 +116,31 @@ void stopButton(Elevator* el, Queue* q){
     el -> justStopped = 1;
     if (elevio_floorSensor() != -1){
         elevio_doorOpenLamp(1);
+        el -> doorOpenCount = 0;
+    }
+    else{
+        el -> doorOpenCount = (RATIO/10)-500;
     }
 
 }
 
 
 void returnAfterStop(Elevator* el, Queue* q){
-    if (elevio_floorSensor() == -1){//if we're between two floors
-        el -> doorOpenCount = 0;
-        el -> justStopped = 0;
-        elevio_stopLamp(0);
-    }
-    else if (el->inFloor == elevio_floorSensor()){ //if in a floor, keep doors open
-        if (el -> doorOpenCount >= RATIO/10){ //if the doors have been open for 3s
-            el-> doorOpenCount = 0;
-            el->justStopped = 0;
-            elevio_stopLamp(0);
-            elevio_doorOpenLamp(0);
-        }
-        else if (elevio_obstruction()){ //still need to check for obstructions
+    if (el->inFloor == elevio_floorSensor()){ //if in a floor, keep doors open
+        elevio_doorOpenLamp(1);
+        if (elevio_obstruction()){ //still need to check for obstructions
             el -> doorOpenCount = 0;
         }
-        else{
-            elevio_motorDirection(DIRN_STOP);
-            elevio_doorOpenLamp(1);
-            el -> doorOpenCount += 1;
-        }
+    }
+    if (el -> doorOpenCount >= RATIO/10){ //if the doors have been open for 3s
+        el-> doorOpenCount = 0;
+        el->justStopped = 0;
+        elevio_stopLamp(0);
+        elevio_doorOpenLamp(0);
+    }
+    else{
+        elevio_motorDirection(DIRN_STOP);
+        el -> doorOpenCount += 1;
     }
 }
 

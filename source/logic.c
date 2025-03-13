@@ -4,7 +4,6 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
     int foundPlace = 0;
     if ((el->inFloor == 0) & (f == 2) & (b == 2)){ //incredibly specific edge-case fix
         elevio_motorDirection(DIRN_UP);
-        el->lastKnownDirection = DIRN_UP;
     }
     switch (el -> direction){
     case DIRN_UP:
