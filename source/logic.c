@@ -37,7 +37,7 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
                 foundPlace = 1;
             }
             else{
-                addFloorToQueue(q, f, 1);
+                addFloorToQueue(q, f, 0);
                 printf("added floor %d to super-queue, direction down\n", f);
                 foundPlace = 1;
             }
