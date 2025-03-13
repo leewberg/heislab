@@ -1,0 +1,10 @@
+<map id="source/elevator.h" name="source/elevator.h">
+<area shape="rect" id="node1" title="h&#45;file containing functions needed for the elevator and the elevator&#45;struct itself" alt="" coords="85,5,220,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="101,229,167,256"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,229,76,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="420,229,493,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="191,229,255,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="280,229,396,256"/>
+<area shape="rect" id="node7" href="$queue_8h.html" title="Functions needed to do operations on the queue and the struct for the queue itself." alt="" coords="178,80,253,107"/>
+<area shape="rect" id="node8" href="$lights_8h.html" title="Contains function to extinguish all light&#45;indicators." alt="" coords="180,155,251,181"/>
+</map>
