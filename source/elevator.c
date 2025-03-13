@@ -24,7 +24,7 @@ void goToFloor(Elevator* el, int floor, Queue* q){
         el -> lastKnownDirection = DIRN_DOWN;
     }
 
-    else if (el -> inFloor == floor){ //once we've reached our floor
+    else if ((el -> inFloor == floor) & (elevio_floorSensor() != -1)){ //once we've reached our floor
         if ((el->doorOpenCount) >= RATIO/50){ //if the doors have been open for 3 seconds. add room for some extra nanoseconds outside of the looptime just so the program itself has time to run
             printf("order completed\n");
             if (el->orderList[el->onOrderNum] == floor | el-> lastKnownDirection == DIRN_UP){ //we have been going upwards
@@ -53,7 +53,12 @@ void goToFloor(Elevator* el, int floor, Queue* q){
             el ->doorsOpen = 1;
         }
         elevio_doorOpenLamp(el -> doorsOpen);
-        elevio_motorDirection(DIRN_STOP);}
+        elevio_motorDirection(DIRN_STOP);
+    }
+    else{//if per example between floors after a stop and cab button is pressed for floor we were in
+        elevio_motorDirection(DIRN_UP);
+        el->lastKnownDirection = DIRN_UP;
+    }
     }
 }
 
