@@ -2,9 +2,6 @@
 
 void decideOrder(Elevator* el, Queue* q, int f, int b){
     int foundPlace = 0;
-    if ((el->inFloor == 0) & (f == 2) & (b == 2)){ //incredibly specific edge-case fix
-        elevio_motorDirection(DIRN_UP);
-    }
     switch (el -> direction){
     case DIRN_UP:
         if (b == 0 | b == 2){
@@ -24,7 +21,7 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
         }
         else if (b == 1){
             addFloorToQueue(q, f, 0);
-            printf("added floor %d to super-queue, direction up\n", f);
+            printf("added floor %d to super-queue, direction down\n", f);
             foundPlace = 1;
         }
         break;
@@ -47,7 +44,7 @@ void decideOrder(Elevator* el, Queue* q, int f, int b){
         }
         else if (b == 0){
             addFloorToQueue(q, f, 1);
-            printf("added floor %d to super-queue, direction down\n", f);
+            printf("added floor %d to super-queue, direction up\n", f);
             foundPlace = 1;
         }
         break;
