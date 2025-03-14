@@ -39,6 +39,8 @@ typedef struct{
     @brief If the elevator just stopped or not */
     MotorDirection direction; /**
     @brief Direction of the current order the elevator is on */
+    MotorDirection lastKnown; /**
+    @brief Last known direction of the elevator. Used when returning to a floor after stop between floors */
 } Elevator;
 
 /**
