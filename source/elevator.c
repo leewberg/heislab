@@ -137,6 +137,7 @@ void returnAfterStop(Elevator* el, Queue* q){
         elevio_doorOpenLamp(0);
     }
     else{
+        elevio_stopLamp(1);
         elevio_motorDirection(DIRN_STOP);
         el -> doorOpenCount += 1;
     }
