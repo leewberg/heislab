@@ -1,29 +1,31 @@
-\hypertarget{logic_8h}{}\doxysection{source/logic.h File Reference}
-\label{logic_8h}\index{source/logic.h@{source/logic.h}}
+\doxysection{source/logic.h File Reference}
+\hypertarget{logic_8h}{}\label{logic_8h}\index{source/logic.h@{source/logic.h}}
 
 
 Contains the function needed to sort the order for a floor once a button for that floor is pressed.  
 
 
-{\ttfamily \#include \char`\"{}elevator.\+h\char`\"{}}\newline
-Include dependency graph for logic.\+h\+:\nopagebreak
+{\ttfamily \#include "{}elevator.\+h"{}}\newline
+Include dependency graph for logic.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{logic_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=266pt]{logic_8h__dep__incl}
 \end{center}
 \end{figure}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{logic_8h_ab2c48f91d40942d007fafd3cc08609a1}{decide\+Order}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$el, \mbox{\hyperlink{structQueue}{Queue}} $\ast$q, int f, int b)
+void \mbox{\hyperlink{logic_8h_ab2c48f91d40942d007fafd3cc08609a1}{decide\+Order}} (\mbox{\hyperlink{structElevator}{Elevator}} \texorpdfstring{$\ast$}{*}el, \mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}q, int f, int b)
 \begin{DoxyCompactList}\small\item\em Function that decides where a registered order for a floor is supposed to go based on the current direction and floor of the elevator and the order. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -44,12 +46,16 @@ Copyright (c) 2025
 \end{DoxyCopyright}
 
 
+Definition in file \mbox{\hyperlink{logic_8h_source}{logic.\+h}}.
+
+
+
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{logic_8h_ab2c48f91d40942d007fafd3cc08609a1}\label{logic_8h_ab2c48f91d40942d007fafd3cc08609a1}} 
+\Hypertarget{logic_8h_ab2c48f91d40942d007fafd3cc08609a1}\label{logic_8h_ab2c48f91d40942d007fafd3cc08609a1} 
 \index{logic.h@{logic.h}!decideOrder@{decideOrder}}
 \index{decideOrder@{decideOrder}!logic.h@{logic.h}}
 \doxysubsubsection{\texorpdfstring{decideOrder()}{decideOrder()}}
-{\footnotesize\ttfamily void decide\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q,  }\item[{int}]{f,  }\item[{int}]{b }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void decide\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} \texorpdfstring{$\ast$}{*}}]{el,  }\item[{\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}}]{q,  }\item[{int}]{f,  }\item[{int}]{b }\end{DoxyParamCaption})}
 
 
 
@@ -57,9 +63,9 @@ Function that decides where a registered order for a floor is supposed to go bas
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em el} & \mbox{\hyperlink{structElevator}{Elevator}} \\
+\mbox{\texttt{ in,out}}  & {\em el} & \doxylink{structElevator}{Elevator} \\
 \hline
-\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
+\mbox{\texttt{ out}}  & {\em q} & \doxylink{structQueue}{Queue} \\
 \hline
 \mbox{\texttt{ in}}  & {\em f} & Floor we have recieved an order for \\
 \hline
@@ -68,5 +74,5 @@ Function that decides where a registered order for a floor is supposed to go bas
 \end{DoxyParams}
 
 
-Definition at line 3 of file logic.\+c.
+Definition at line \mbox{\hyperlink{logic_8c_source_l00003}{3}} of file \mbox{\hyperlink{logic_8c_source}{logic.\+c}}.
 

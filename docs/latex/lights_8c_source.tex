@@ -1,0 +1,15 @@
+\doxysection{lights.\+c}
+\hypertarget{lights_8c_source}{}\label{lights_8c_source}\index{source/lights.c@{source/lights.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lights_8h}{lights.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00003}\mbox{\hyperlink{lights_8h_a00e72c00dd69d616999597b72edfebc8}{00003}}\ \textcolor{keywordtype}{void}\ extLightIndicators()\ \{\textcolor{comment}{//extinguish\ all\ cab\ and\ order\ lights\ (for\ example\ when\ stop\ button\ is\ pressed\ or\ we\ wipe\ the\ q)}}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00004}00004\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ f\ =\ 0;\ f\ <\ N\_FLOORS;\ f++)\{\ }
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00005}00005\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ b\ =\ 0;\ b\ <\ N\_BUTTONS;\ b++)\{}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00006}00006\ \ \ \ \ \ \ \ \ \ \ \ \ elevio\_buttonLamp(f,\ b,\ 0);\ \textcolor{comment}{//go\ through\ each\ button\ and\ turn\ off\ the\ corresponding\ light}}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00007}00007\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00008}00008\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lights_8c_source_l00009}00009\ \}}
+
+\end{DoxyCode}
