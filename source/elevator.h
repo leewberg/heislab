@@ -42,6 +42,7 @@ typedef struct{
     volatile int doorOpenCount;
     int justStopped;
     MotorDirection direction;
+    MotorDirection lastKnown;
 } Elevator;
 
 /**

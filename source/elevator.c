@@ -16,23 +16,24 @@ void goToFloor(Elevator* el, int floor, Queue* q){
     else {
         if (el->inFloor < floor){ //if we're bellow the floor we want to be in
             elevio_motorDirection(DIRN_UP);
+            el -> lastKnown = DIRN_UP;
         }
     
         else if (el->inFloor > floor){
             elevio_motorDirection(DIRN_DOWN);
+            el->lastKnown = DIRN_DOWN;
         }
 
         else if ((el -> inFloor == floor) & (elevio_floorSensor() != -1)){ //once we've reached our floor
-            if ((el->doorOpenCount) >= RATIO/50){ //if the doors have been open for 3 seconds. add room for some extra nanoseconds outside of the looptime just so the program itself has time to run
-                
-                if (el->orderList[N_FLOORS - 1 - floor] == floor | el->direction == DIRN_DOWN){ //we have been going downwards
-                    elevio_buttonLamp(floor, 1, 0);
-                }
-                else if (el->orderList[el->onOrderNum] == floor | el-> direction == DIRN_UP){ //we have been going upwards
-                    elevio_buttonLamp(floor, 0, 0);
-                }
-                elevio_buttonLamp(floor, 2, 0);
+            if (el->orderList[N_FLOORS - 1 - floor] == floor | el->direction == DIRN_DOWN){ //we have been going downwards
+                elevio_buttonLamp(floor, 1, 0);
+            }
+            else if (el->orderList[el->onOrderNum] == floor | el-> direction == DIRN_UP){ //we have been going upwards
+                elevio_buttonLamp(floor, 0, 0);
+            }
+            elevio_buttonLamp(floor, 2, 0);
 
+            if ((el->doorOpenCount) >= RATIO/50){ //if the doors have been open for 3 seconds. add room for some extra nanoseconds outside of the looptime just so the program itself has time to run
                 if (el->onOrderNum == N_FLOORS-1){ //if we've reached the end of our current queue
                     getnextElement(q, el);
                     el -> doorOpenCount = 0;
@@ -52,7 +53,12 @@ void goToFloor(Elevator* el, int floor, Queue* q){
             elevio_motorDirection(DIRN_STOP);
         }
         else{//if per example between floors after a stop and cab button is pressed for floor we were in
-            elevio_motorDirection(DIRN_UP);
+            if (el->lastKnown == DIRN_DOWN){
+                elevio_motorDirection(DIRN_UP);
+            }
+            else if (el->lastKnown == DIRN_UP){
+                elevio_motorDirection(DIRN_DOWN);
+            }
         }
     }
 }
