@@ -1,0 +1,48 @@
+\doxysection{queue.\+c}
+\hypertarget{queue_8c_source}{}\label{queue_8c_source}\index{source/queue.c@{source/queue.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{queue_8h}{queue.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00004}\mbox{\hyperlink{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}{00004}}\ \textcolor{keywordtype}{void}\ initQ\ (\mbox{\hyperlink{structQueue}{Queue}}*\ q)\{\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00005}00005\ \ \ \ \ q\ -\/>\ front\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00006}00006\ \ \ \ \ \textcolor{comment}{//initialize\ q\ w/\ all\ invalid\ floors}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00007}00007\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ MAX\_SIZE;\ i\ ++)\{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00008}00008\ \ \ \ \ \ \ \ \ q\ -\/>\ arr[i][0][0]\ =\ i;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00009}00009\ \ \ \ \ \ \ \ \ \textcolor{comment}{//have\ then\ kind\ of\ "{}rigid"{}\ queue\ elements\ where\ we\ can\ only\ truly\ modify\ the\ element\ order}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00010}00010\ \ \ \ \ \ \ \ \ \textcolor{comment}{//this\ means\ that\ index\ 0\ carries\ the\ "{}down"{}\ orders,\ and\ 1\ carries\ the\ "{}up"{}\ orders}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ N\_FLOORS;\ j++)\{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ q-\/>arr[i][1][j]\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00013}00013\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00014}00014\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00015}00015\ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00017}\mbox{\hyperlink{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}{00017}}\ \textcolor{keywordtype}{void}\ addFloorToQueue(\mbox{\hyperlink{structQueue}{Queue}}\ *q,\ \textcolor{keywordtype}{int}\ floor,\ \textcolor{keywordtype}{int}\ dir)\{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{switch}\ (dir)\{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//going\ down}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ q-\/>arr[0][1][N\_FLOORS\ -\/\ 1\ -\/\ floor]\ =\ floor;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}added\ \%d\ to\ queue,\ going\ down\(\backslash\)n"{}},\ floor);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ q-\/>arr[1][1][floor]\ =\ floor;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}added\ \%d\ to\ queue,\ going\ up\(\backslash\)n"{}},\ floor);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}cannot\ add\ element\ to\ queue.\ didn't\ find\ place\ to\ put\ it\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00031}00031\ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00034}\mbox{\hyperlink{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}{00034}}\ \textcolor{keywordtype}{void}\ wipeQueue(\mbox{\hyperlink{structQueue}{Queue}}*\ q)\{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00035}00035\ \ \ \ \ q\ -\/>\ front\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00036}00036\ \ \ \ \ extLightIndicators();\ \textcolor{comment}{//\ extinguish\ all\ lights}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ f\ =\ 0;\ f\ <\ N\_FLOORS;\ f++)\ \{\ \textcolor{comment}{//\ nullify\ all\ elements\ in\ the\ queue\ (set\ to\ -\/1)\ }}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ q\ -\/>\ arr[0][1][f]\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ q\ -\/>\ arr[1][1][f]\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00042}00042\ }
+
+\end{DoxyCode}
