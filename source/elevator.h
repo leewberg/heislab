@@ -22,25 +22,25 @@
  * @struct Elevator
  * @brief Struct for the elements needed for an elevator
  */
-typedef struct{
-    int inFloor; /**
+typedef struct{/**
     @brief The floor the elevator is in */
-    int orderList[N_FLOORS];/**
+    int inFloor; /**
     @brief The elevator's currents list of orders*/
-    int initialized;/**
+    int orderList[N_FLOORS];/**
     @brief Indicates if the elevator is initialized or not */
-    int onOrderNum;/**
+    int initialized;/**
     @brief The element in its order list the elevator is on */
-    int doorsOpen; /**
+    int onOrderNum;/**
     @brief indicates if the doors are open */
-    volatile int doorOpenCount; /**
+    int doorsOpen; /**
     @brief Loop iterations the doors have been open for */
-    int justStopped; /**
+    volatile int doorOpenCount; /**
     @brief If the elevator just stopped or not */
-    MotorDirection direction; /**
+    int justStopped; /**
     @brief Direction of the current order the elevator is on */
-    MotorDirection lastKnown; /**
+    MotorDirection direction; /**
     @brief Last known direction of the elevator. Used when returning to a floor after stop between floors */
+    MotorDirection lastKnown; 
 
 } Elevator;
 

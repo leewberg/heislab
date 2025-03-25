@@ -13,5 +13,6 @@
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingComments": "always",
     "editor.autoClosingQuotes": "always",
-    "explorer.excludeGitIgnore": true
+    "explorer.excludeGitIgnore": true,
+    "makefile.configureOnOpen": false
 }

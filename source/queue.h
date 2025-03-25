@@ -23,11 +23,11 @@
  * @brief Struct containing all needed elements for a queue. The queue is structured so that it only has two elements at a time; one for up and one for down. Each of these elements contain two arrays themselves, each one with a length of the number of floors. The first of these elements tells us which direction the queue element is for, where a value of 0 means down and 1 means up. The second of these elements tell us which floors we're stopping. a -1 means that the spot is empty and that the elevator will skip that place in the order list
  * 
  */
-typedef struct{
-    int arr[MAX_SIZE][2][N_FLOORS];/**
+typedef struct{/**
     @brief  Array containing all queue elements. A 2x2x4 matrix*/
-    int front;/**
+    int arr[MAX_SIZE][2][N_FLOORS];/**
     @brief Keeps track of our placement in the queue */
+    int front;
 }Queue;
 
 /**

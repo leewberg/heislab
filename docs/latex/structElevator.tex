@@ -1,5 +1,5 @@
-\doxysection{Elevator Struct Reference}
-\hypertarget{structElevator}{}\label{structElevator}\index{Elevator@{Elevator}}
+\hypertarget{structElevator}{}\doxysection{Elevator Struct Reference}
+\label{structElevator}\index{Elevator@{Elevator}}
 
 
 Struct for the elements needed for an elevator.  
@@ -9,158 +9,42 @@ Struct for the elements needed for an elevator.
 
 {\ttfamily \#include $<$elevator.\+h$>$}
 
-\doxysubsubsection*{Data Fields}
+\doxysubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{structElevator_a0e30ff98318d046f0b1157d606c92775}\label{structElevator_a0e30ff98318d046f0b1157d606c92775}} 
 int \mbox{\hyperlink{structElevator_a0e30ff98318d046f0b1157d606c92775}{in\+Floor}}
-\item 
-int \mbox{\hyperlink{structElevator_a550c64bee7613108e25a01dbef8c0d94}{order\+List}} \mbox{[}N\+\_\+\+FLOORS\mbox{]}
 \begin{DoxyCompactList}\small\item\em The floor the elevator is in. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9}{initialized}}
+\mbox{\Hypertarget{structElevator_a550c64bee7613108e25a01dbef8c0d94}\label{structElevator_a550c64bee7613108e25a01dbef8c0d94}} 
+int \mbox{\hyperlink{structElevator_a550c64bee7613108e25a01dbef8c0d94}{order\+List}} \mbox{[}N\+\_\+\+FLOORS\mbox{]}
 \begin{DoxyCompactList}\small\item\em The elevator\textquotesingle{}s currents list of orders. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{structElevator_abb0a31257a956941249aee42d1b562e6}{on\+Order\+Num}}
+\mbox{\Hypertarget{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9}\label{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9}} 
+int \mbox{\hyperlink{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9}{initialized}}
 \begin{DoxyCompactList}\small\item\em Indicates if the elevator is initialized or not. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8}{doors\+Open}}
+\mbox{\Hypertarget{structElevator_abb0a31257a956941249aee42d1b562e6}\label{structElevator_abb0a31257a956941249aee42d1b562e6}} 
+int \mbox{\hyperlink{structElevator_abb0a31257a956941249aee42d1b562e6}{on\+Order\+Num}}
 \begin{DoxyCompactList}\small\item\em The element in its order list the elevator is on. \end{DoxyCompactList}\item 
-volatile int \mbox{\hyperlink{structElevator_abd1c5fc8ef586601d8374ec1763f50ed}{door\+Open\+Count}}
+\mbox{\Hypertarget{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8}\label{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8}} 
+int \mbox{\hyperlink{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8}{doors\+Open}}
 \begin{DoxyCompactList}\small\item\em indicates if the doors are open \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{structElevator_ac5268d101b74f647dba6ce203bbf724d}{just\+Stopped}}
+\mbox{\Hypertarget{structElevator_abd1c5fc8ef586601d8374ec1763f50ed}\label{structElevator_abd1c5fc8ef586601d8374ec1763f50ed}} 
+volatile int \mbox{\hyperlink{structElevator_abd1c5fc8ef586601d8374ec1763f50ed}{door\+Open\+Count}}
 \begin{DoxyCompactList}\small\item\em Loop iterations the doors have been open for. \end{DoxyCompactList}\item 
-Motor\+Direction \mbox{\hyperlink{structElevator_a735e2b303c740eb95a0866f58a718b03}{direction}}
+\mbox{\Hypertarget{structElevator_ac5268d101b74f647dba6ce203bbf724d}\label{structElevator_ac5268d101b74f647dba6ce203bbf724d}} 
+int \mbox{\hyperlink{structElevator_ac5268d101b74f647dba6ce203bbf724d}{just\+Stopped}}
 \begin{DoxyCompactList}\small\item\em If the elevator just stopped or not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structElevator_a735e2b303c740eb95a0866f58a718b03}\label{structElevator_a735e2b303c740eb95a0866f58a718b03}} 
+Motor\+Direction \mbox{\hyperlink{structElevator_a735e2b303c740eb95a0866f58a718b03}{direction}}
+\begin{DoxyCompactList}\small\item\em Direction of the current order the elevator is on. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structElevator_abbc9fc5fcf5a41524313c56ddc9484fe}\label{structElevator_abbc9fc5fcf5a41524313c56ddc9484fe}} 
 Motor\+Direction \mbox{\hyperlink{structElevator_abbc9fc5fcf5a41524313c56ddc9484fe}{last\+Known}}
-\begin{DoxyCompactList}\small\item\em Direction of the current order the elevator is on. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Last known direction of the elevator. Used when returning to a floor after stop between floors. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Struct for the elements needed for an elevator. 
 
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00025}{25}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-
-
-\doxysubsection{Field Documentation}
-\Hypertarget{structElevator_a735e2b303c740eb95a0866f58a718b03}\label{structElevator_a735e2b303c740eb95a0866f58a718b03} 
-\index{Elevator@{Elevator}!direction@{direction}}
-\index{direction@{direction}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{direction}{direction}}
-{\footnotesize\ttfamily Motor\+Direction Elevator\+::direction}
-
-
-
-If the elevator just stopped or not. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00040}{40}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_abd1c5fc8ef586601d8374ec1763f50ed}\label{structElevator_abd1c5fc8ef586601d8374ec1763f50ed} 
-\index{Elevator@{Elevator}!doorOpenCount@{doorOpenCount}}
-\index{doorOpenCount@{doorOpenCount}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{doorOpenCount}{doorOpenCount}}
-{\footnotesize\ttfamily volatile int Elevator\+::door\+Open\+Count}
-
-
-
-indicates if the doors are open 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00036}{36}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8}\label{structElevator_a7a3724ff69e5e64f1dfd93a148d0f7f8} 
-\index{Elevator@{Elevator}!doorsOpen@{doorsOpen}}
-\index{doorsOpen@{doorsOpen}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{doorsOpen}{doorsOpen}}
-{\footnotesize\ttfamily int Elevator\+::doors\+Open}
-
-
-
-The element in its order list the elevator is on. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00034}{34}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_a0e30ff98318d046f0b1157d606c92775}\label{structElevator_a0e30ff98318d046f0b1157d606c92775} 
-\index{Elevator@{Elevator}!inFloor@{inFloor}}
-\index{inFloor@{inFloor}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{inFloor}{inFloor}}
-{\footnotesize\ttfamily int Elevator\+::in\+Floor}
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00026}{26}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9}\label{structElevator_aa10fbc99052a9d175be8ee71ab5e0dc9} 
-\index{Elevator@{Elevator}!initialized@{initialized}}
-\index{initialized@{initialized}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{initialized}{initialized}}
-{\footnotesize\ttfamily int Elevator\+::initialized}
-
-
-
-The elevator\textquotesingle{}s currents list of orders. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00030}{30}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_ac5268d101b74f647dba6ce203bbf724d}\label{structElevator_ac5268d101b74f647dba6ce203bbf724d} 
-\index{Elevator@{Elevator}!justStopped@{justStopped}}
-\index{justStopped@{justStopped}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{justStopped}{justStopped}}
-{\footnotesize\ttfamily int Elevator\+::just\+Stopped}
-
-
-
-Loop iterations the doors have been open for. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00038}{38}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_abbc9fc5fcf5a41524313c56ddc9484fe}\label{structElevator_abbc9fc5fcf5a41524313c56ddc9484fe} 
-\index{Elevator@{Elevator}!lastKnown@{lastKnown}}
-\index{lastKnown@{lastKnown}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{lastKnown}{lastKnown}}
-{\footnotesize\ttfamily Motor\+Direction Elevator\+::last\+Known}
-
-
-
-Direction of the current order the elevator is on. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00042}{42}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_abb0a31257a956941249aee42d1b562e6}\label{structElevator_abb0a31257a956941249aee42d1b562e6} 
-\index{Elevator@{Elevator}!onOrderNum@{onOrderNum}}
-\index{onOrderNum@{onOrderNum}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{onOrderNum}{onOrderNum}}
-{\footnotesize\ttfamily int Elevator\+::on\+Order\+Num}
-
-
-
-Indicates if the elevator is initialized or not. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00032}{32}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
-
-\Hypertarget{structElevator_a550c64bee7613108e25a01dbef8c0d94}\label{structElevator_a550c64bee7613108e25a01dbef8c0d94} 
-\index{Elevator@{Elevator}!orderList@{orderList}}
-\index{orderList@{orderList}!Elevator@{Elevator}}
-\doxysubsubsection{\texorpdfstring{orderList}{orderList}}
-{\footnotesize\ttfamily int Elevator\+::order\+List\mbox{[}N\+\_\+\+FLOORS\mbox{]}}
-
-
-
-The floor the elevator is in. 
-
-
-
-Definition at line \mbox{\hyperlink{elevator_8h_source_l00028}{28}} of file \mbox{\hyperlink{elevator_8h_source}{elevator.\+h}}.
+Definition at line 25 of file elevator.\+h.
 
 
 

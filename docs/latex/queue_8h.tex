@@ -1,5 +1,5 @@
-\doxysection{source/queue.h File Reference}
-\hypertarget{queue_8h}{}\label{queue_8h}\index{source/queue.h@{source/queue.h}}
+\hypertarget{queue_8h}{}\doxysection{source/queue.h File Reference}
+\label{queue_8h}\index{source/queue.h@{source/queue.h}}
 
 
 Functions needed to do operations on the queue and the struct for the queue itself.  
@@ -9,42 +9,41 @@ Functions needed to do operations on the queue and the struct for the queue itse
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$signal.\+h$>$}\newline
 {\ttfamily \#include $<$time.\+h$>$}\newline
-{\ttfamily \#include "{}driver/elevio.\+h"{}}\newline
-{\ttfamily \#include "{}lights.\+h"{}}\newline
-Include dependency graph for queue.\+h\+:
-\nopagebreak
+{\ttfamily \#include \char`\"{}driver/elevio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lights.\+h\char`\"{}}\newline
+Include dependency graph for queue.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{queue_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{queue_8h__dep__incl}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Data Structures}
+\doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structQueue}{Queue}}
 \begin{DoxyCompactList}\small\item\em Struct containing all needed elements for a queue. The queue is structured so that it only has two elements at a time; one for up and one for down. Each of these elements contain two arrays themselves, each one with a length of the number of floors. The first of these elements tells us which direction the queue element is for, where a value of 0 means down and 1 means up. The second of these elements tell us which floors we\textquotesingle{}re stopping. a -\/1 means that the spot is empty and that the elevator will skip that place in the order list. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsubsection*{Macros}
+\doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{queue_8h_a0592dba56693fad79136250c11e5a7fe}{MAX\+\_\+\+SIZE}}~2
+\mbox{\Hypertarget{queue_8h_a0592dba56693fad79136250c11e5a7fe}\label{queue_8h_a0592dba56693fad79136250c11e5a7fe}} 
+\#define {\bfseries MAX\+\_\+\+SIZE}~2
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Functions}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}{initQ}} (\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}q)
+void \mbox{\hyperlink{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}{initQ}} (\mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
 \begin{DoxyCompactList}\small\item\em Initializes the queue. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}{add\+Floor\+To\+Queue}} (\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}q, int floor, int dir)
+void \mbox{\hyperlink{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}{add\+Floor\+To\+Queue}} (\mbox{\hyperlink{structQueue}{Queue}} $\ast$q, int floor, int dir)
 \begin{DoxyCompactList}\small\item\em Adds a floor to the queue based on the order\textquotesingle{}s direction. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}{wipe\+Queue}} (\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}q)
+void \mbox{\hyperlink{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}{wipe\+Queue}} (\mbox{\hyperlink{structQueue}{Queue}} $\ast$q)
 \begin{DoxyCompactList}\small\item\em Removes everything from the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -65,29 +64,12 @@ Copyright (c) 2025
 \end{DoxyCopyright}
 
 
-Definition in file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
-
-
-
-\doxysubsection{Macro Definition Documentation}
-\Hypertarget{queue_8h_a0592dba56693fad79136250c11e5a7fe}\label{queue_8h_a0592dba56693fad79136250c11e5a7fe} 
-\index{queue.h@{queue.h}!MAX\_SIZE@{MAX\_SIZE}}
-\index{MAX\_SIZE@{MAX\_SIZE}!queue.h@{queue.h}}
-\doxysubsubsection{\texorpdfstring{MAX\_SIZE}{MAX\_SIZE}}
-{\footnotesize\ttfamily \#define MAX\+\_\+\+SIZE~2}
-
-
-
-Definition at line \mbox{\hyperlink{queue_8h_source_l00017}{17}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
-
-
-
 \doxysubsection{Function Documentation}
-\Hypertarget{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}\label{queue_8h_a69904477a9fc7cb3d69cb244e21fc179} 
+\mbox{\Hypertarget{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}\label{queue_8h_a69904477a9fc7cb3d69cb244e21fc179}} 
 \index{queue.h@{queue.h}!addFloorToQueue@{addFloorToQueue}}
 \index{addFloorToQueue@{addFloorToQueue}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{addFloorToQueue()}{addFloorToQueue()}}
-{\footnotesize\ttfamily void add\+Floor\+To\+Queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}}]{q,  }\item[{int}]{floor,  }\item[{int}]{dir }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void add\+Floor\+To\+Queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q,  }\item[{int}]{floor,  }\item[{int}]{dir }\end{DoxyParamCaption})}
 
 
 
@@ -95,7 +77,7 @@ Adds a floor to the queue based on the order\textquotesingle{}s direction.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em q} & \doxylink{structQueue}{Queue} \\
+\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
 \hline
 \mbox{\texttt{ in}}  & {\em floor} & The floor getting added to the queue \\
 \hline
@@ -104,13 +86,13 @@ Adds a floor to the queue based on the order\textquotesingle{}s direction.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{queue_8c_source_l00017}{17}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+Definition at line 17 of file queue.\+c.
 
-\Hypertarget{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}\label{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd} 
+\mbox{\Hypertarget{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}\label{queue_8h_a4bbad4eb18e9e975b9563e2f84dfc4bd}} 
 \index{queue.h@{queue.h}!initQ@{initQ}}
 \index{initQ@{initQ}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{initQ()}{initQ()}}
-{\footnotesize\ttfamily void initQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}}]{q }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void initQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
 
 
 
@@ -118,18 +100,18 @@ Initializes the queue.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em q} & \doxylink{structQueue}{Queue} \\
+\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{queue_8c_source_l00004}{4}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+Definition at line 4 of file queue.\+c.
 
-\Hypertarget{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}\label{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c} 
+\mbox{\Hypertarget{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}\label{queue_8h_ab33b8a048dd5ac3bdd5c60ddcefecf2c}} 
 \index{queue.h@{queue.h}!wipeQueue@{wipeQueue}}
 \index{wipeQueue@{wipeQueue}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{wipeQueue()}{wipeQueue()}}
-{\footnotesize\ttfamily void wipe\+Queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} \texorpdfstring{$\ast$}{*}}]{q }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void wipe\+Queue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structQueue}{Queue}} $\ast$}]{q }\end{DoxyParamCaption})}
 
 
 
@@ -137,10 +119,10 @@ Removes everything from the queue.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em q} & \doxylink{structQueue}{Queue} \\
+\mbox{\texttt{ out}}  & {\em q} & \mbox{\hyperlink{structQueue}{Queue}} \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{queue_8c_source_l00034}{34}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+Definition at line 34 of file queue.\+c.
 
